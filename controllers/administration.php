@@ -18,6 +18,7 @@ class Administration extends Controller {
 	}
 	public function status() {
 		$this->view->title = 'Network: Status';
+		$this->view->data = $this->model->get('administration.status');
 		$this->view->template('administration.status');
 	}
 }

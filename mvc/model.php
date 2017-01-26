@@ -1,6 +1,6 @@
 <?php
 class Model {
-	function auth(){
+	function get(){
 		
 	}
 }
