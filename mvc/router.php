@@ -1,6 +1,32 @@
 <?php
 class Router {
 	public function __construct() {
+		
+		/*
+		 * Check login credentials
+		 */ 
+		session_start();
+		if (!isset($_SESSION['login'])){
+			unset($_SESSION['login_msg']);
+			if(isset($_POST['username'])&&isset($_POST['password'])){
+				$hash=exec("cat /etc/shadow | grep admin | awk -F: '{print $2}'");
+				$hash='$1$VUeS9QjD$h5n5Pe.WsezuCRpfdtRQB/';
+				if (password_verify($_POST['password'], $hash) && $_POST['username']=='admin') {
+					$_SESSION['login'] = true;
+					$_SESSION['username'] = $_POST['username'];
+				}else{
+					$_SESSION['login_msg'] = 'Login or password is incorrect.';
+					require_once 'controllers/login.php';
+					new Login();
+					return false;
+				}
+			}else{
+				require_once 'controllers/login.php';
+				new Login();
+				return false;
+			}
+		}
+		
 		if(isset($_GET['url']) && !empty($_GET['url'])){
 			$url=rtrim(strtolower($_GET['url']), '/');
 			$url=explode('/', $url);
@@ -24,7 +50,7 @@ class Router {
 			require_once 'controllers/'.$controller.'.php';
 		}else{
 			require_once 'controllers/404.php';
-			$controller = new Not_found();
+			new Not_found();
 			return false;
 		}
 		$controller=new $controller;
@@ -36,7 +62,7 @@ class Router {
 					$controller->$action();
 				}else{
 					require_once 'controllers/404.php';
-					$controller = new Not_found();
+					new Not_found();
 					return false;
 				}
 			}else{
@@ -44,11 +70,12 @@ class Router {
 					$controller->index();
 				}else{
 					require_once 'controllers/404.php';
-					$controller = new Not_found();
+					new Not_found();
 					return false;
 				}
 			}
 		}
 	}
+	
 }
 ?>

@@ -422,9 +422,64 @@ h1 {
 #main-menu .sub-menu > li > a:hover, #main-menu .sub-menu > li > a.current-item{
 	text-decoration: underline;
 }
+/*--------------------------------------------------------------
+5 - Login page
+--------------------------------------------------------------*/
+body.login .bg-overlay{
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+	background: #666 url(../images/bg_login.png) 50% 50% repeat;
+    opacity: .5;
+}
+body.login .container{
+	margin-top: 30vh;;
+    margin-bottom: 0;
+    width: 300px;
+    min-width: 300px;
+    border: 1px solid #ddd;
+    background: #eee;
+    color: #333;
+    border-radius: 4px;
+	box-shadow: none;
+	padding: .2em;
+}
+body.login .form-title{
+	padding: .4em 1em;
+	border-radius: 4px;
+	border: 1px solid #204a87;
+    background: #729fcf;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+body.login form{
+	margin-top: 10px;
+}
+body.login form td{
+	vertical-align: initial;
+}
+body.login .error-msg{
+	color: red;
+	margin: 0;
+}
+body.login form input::-webkit-input-placeholder {color:red;}
+body.login form input::-moz-placeholder          {color:red;}/* Firefox 19+ */
+body.login form input:-moz-placeholder           {color:red;}/* Firefox 18- */
+body.login form input:-ms-input-placeholder      {color:red;}
+body.login .form-submit{
+	border-top: 1px solid #ddd;
+	text-align: right;
+    margin: 20px 0 10px 0;
+}
+body.login .form-submit input{
+	margin: 10px 0;
+}
 
 /*--------------------------------------------------------------
-5 - Main
+6 - Main
 --------------------------------------------------------------*/
 #top-panel{
 	padding: 10px;
@@ -449,7 +504,7 @@ h1 {
 }
 
 /*--------------------------------------------------------------
-6 - Help Popup
+7 - Help Popup
 --------------------------------------------------------------*/
 .help-popup-block{
 	background: #FFF;
