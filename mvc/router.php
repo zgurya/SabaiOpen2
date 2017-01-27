@@ -53,7 +53,9 @@ class Router {
 			}
 			
 		}else{
-			$controller='index';
+			/* Set default page */
+			$controller='administration';
+			$action='status';
 		}
 		if(file_exists('controllers/'.$controller.'.php')) {
 			require_once 'controllers/'.$controller.'.php';

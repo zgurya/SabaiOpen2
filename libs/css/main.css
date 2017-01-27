@@ -479,7 +479,7 @@ body.login .form-submit input{
 }
 
 /*--------------------------------------------------------------
-6 - Main
+6 - Header
 --------------------------------------------------------------*/
 #top-panel{
 	padding: 10px;
@@ -504,7 +504,45 @@ body.login .form-submit input{
 }
 
 /*--------------------------------------------------------------
-7 - Help Popup
+7 - Main
+--------------------------------------------------------------*/
+#main .col-12 h2{
+	color: #1B75BB;
+	background: #CED7E1;
+	margin-bottom: 0;
+	padding-top: 10px;
+    padding-bottom: 10px;
+	padding-left: 15px;
+	font-size: 1.2em;
+    font-weight: bold;
+}
+#main .col-12 [class^="col-"]{
+	padding: 0;
+}
+#main .controlBoxContent{
+	background: #EFF2F5;
+	padding-left: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	display: table;
+    width: 100%;
+}
+#main table{
+	border-spacing: 0;
+    border-collapse: collapse;
+}
+#main table .statusCellName {
+    border-right: solid 2px #bdbdbd;
+    padding-right: 10px;
+}
+#main table .statusCellContent{
+	padding-left: 10px;
+}
+.smallText{
+	font-size: .9em;
+}
+/*--------------------------------------------------------------
+8 - Help Popup
 --------------------------------------------------------------*/
 .help-popup-block{
 	background: #FFF;

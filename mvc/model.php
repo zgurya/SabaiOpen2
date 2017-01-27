@@ -1,7 +1,7 @@
 <?php
 class Model {
-	function get(){
-		
+	function __construct(){
+		require_once ROOT.'/models/status.php';
 	}
 }
 ?>

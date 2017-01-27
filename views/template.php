@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="<?php echo SITE_URL;?>/libs/js/jquery.magnific-popup.min.js"></script>
 	<script type="text/javascript" src="<?php echo SITE_URL;?>/libs/js/main.js"></script>
 </head>
-<body class="<?php echo $this->tmplf;?>">
+<body class="<?php echo str_replace('.','-',$this->tmplf);?>">
 <?php if($this->tmplf!='login'):?>
 	<div class="container">
 		<div class="row">
@@ -78,7 +78,7 @@
 					</li>
 				</ul>
 			</div>
-			<div id="main" class="col-10">
+			<div class="col-10">
 				<div id="top-panel" class="row">
 					<div class="col-8">
 						<a href="<?php echo '#'.str_replace('.', '-', $this->tmplf);?>" class="help-popup">
@@ -108,7 +108,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div id="main" class="row">
 					<div class="col-12">
 						<?php require_once $this->tmplf.'.php';?>
 					</div>
