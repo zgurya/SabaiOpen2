@@ -1,11 +1,20 @@
 <?php
 class Router {
 	public function __construct() {
+		session_start();
+		
+		/*
+		 * Session timeout
+		 */
+		if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > SESSION_TIMEOUT)) {
+			session_unset();
+			session_destroy();
+		}
+		$_SESSION['last_activity'] = time();
 		
 		/*
 		 * Check login credentials
 		 */ 
-		session_start();
 		if (!isset($_SESSION['login'])){
 			unset($_SESSION['login_msg']);
 			if(isset($_POST['username'])&&isset($_POST['password'])){
