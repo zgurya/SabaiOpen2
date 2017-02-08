@@ -72,7 +72,7 @@ jQuery(function($){
 		var buttonName=$(this).attr('name');
 		var action=$(this).val();
 		if(buttonName==='getResults'){
-			var ajaxUrl=location.protocol+'//'+document.domain+'/mvc/ajax.php';
+			var ajaxUrl=location.protocol+'//'+document.domain+':'+location.port+'/mvc/ajax.php';
 			var data=form.serialize()+'&action='+action;
 			$.ajax({
 				url: ajaxUrl,
