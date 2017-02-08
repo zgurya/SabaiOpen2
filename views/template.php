@@ -113,6 +113,11 @@
 						<?php require_once $this->tmplf.'.php';?>
 					</div>
 				</div>
+				<div id="footer" class="row">
+					<div class="col-12">
+						Copyright &copy; <?php echo date('Y');?> Sabai Technology, LLC
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
