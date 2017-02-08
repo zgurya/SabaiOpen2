@@ -18,7 +18,7 @@
 <?php if($this->tmplf!='login'):?>
 	<div class="container">
 		<div class="row">
-			<div id="menu" class="col-2">
+			<div id="menu" class="col-lg-2">
 				<a href="<?php echo SITE_URL;?>"><img alt="Logo" src="<?php echo SITE_URL;?>/libs/images/logo.png"></a>
 				<ul id="main-menu">
 					<li>
@@ -78,9 +78,9 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-10">
+			<div class="col-lg-10">
 				<div id="top-panel" class="row">
-					<div class="col-8">
+					<div class="col-lg-8">
 						<a href="<?php echo '#'.str_replace('.', '-', $this->tmplf);?>" class="help-popup">
 							<img alt="help" src="<?php echo SITE_URL;?>/libs/images/help.png" class="help">
 						</a>
@@ -88,19 +88,19 @@
 							<h1><?php echo $this->title;?></h1>
 						<?php endif;?>
 					</div>
-					<div class="col-4" id="stats">
+					<div class="col-lg-4" id="stats">
 						<div class="row">
-							<div class="col-4" id="locstats">
+							<div class="col-lg-4" id="locstats">
 								<div id="locquery">5.53.119.222</div>
 								<div id="loccity">Kiev</div>
 								<div id="loccountry">Ukraine</div>
 							</div>
-							<div class="col-4" id="vpnstats">
+							<div class="col-lg-4" id="vpnstats">
 								<div id="vpntype">VPN</div>
 								<div id="vpnstatus">-</div>
 								<div id="vpnip">-</div>
 							</div>
-							<div class="col-4" id="torstats">
+							<div class="col-lg-4" id="torstats">
 								<div id="tor_proxy">TOR proxy</div>
 								<div id="tor_status">-</div> 
 								<div id="tor_port">-</div> 
@@ -109,12 +109,12 @@
 					</div>
 				</div>
 				<div id="main" class="row">
-					<div class="col-12">
+					<div class="col-lg-12">
 						<?php require_once $this->tmplf.'.php';?>
 					</div>
 				</div>
 				<div id="footer" class="row">
-					<div class="col-12">
+					<div class="col-lg-12">
 						Copyright &copy; <?php echo date('Y');?> Sabai Technology, LLC
 					</div>
 				</div>

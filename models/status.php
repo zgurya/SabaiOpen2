@@ -4,55 +4,48 @@ function get_status($type=null,$param=null){
 		if($type=='system'){
 			switch ($param){
 				case 'name':
-					echo exec("hostname");
+					return exec("hostname");
 					break;
 				case 'model':
-					echo exec("awk '/model name/' /proc/cpuinfo | awk -F: '{print $2}'");
+					return exec("awk '/model name/' /proc/cpuinfo | awk -F: '{print $2}'");
 					break;
 				case 'version':
-					echo exec("cat /etc/sabaiopen_version");
+					return exec("cat /etc/sabaiopen_version");
 					break;
 				case 'time':
-					echo exec("date");
+					return exec("date");
 					break;
 				case 'uptime':
-					echo exec("uptime | awk '{print $3,$4}' | sed 's/\,//g'");
+					return exec("uptime | awk '{print $3,$4}' | sed 's/\,//g'");
 					break;
 				case 'cpuload':
-					echo exec("uptime | awk -F: '{print $5,$6,$7}'");
+					return exec("uptime | awk -F: '{print $5,$6,$7}'");
 					break;
 				case 'mem':
-					echo exec("cat /proc/meminfo |grep MemAvailable| awk '{print $2,$3}'");
+					return exec("cat /proc/meminfo |grep MemAvailable| awk '{print $2,$3}'");
 					break;
 				case 'gateway':
-					echo exec("ip route show | grep default | awk '{print $3}'");
+					return exec("ip route show | grep default | awk '{print $3}'");
 					break;
 			}
 		}
 		if($type=='wan'){
-			//exec("ifconfig -a eth0",$out);
-			
+			exec("/sbin/ifconfig eth0 | egrep -o \"HWaddr [A-Fa-f0-9:]*|inet addr:[0-9:.]*|UP BROADCAST RUNNING MULTICAST\"",$out);
 			switch ($param){
 				case 'mac':
-					exec("ifconfig -a enp3s0",$out);
-					echo strtoupper(substr($out[0],-17));
+					return strtoupper(str_replace("HWaddr ","", ( array_key_exists(0,$out)? "$out[0]" : "-" ) ));
 					break;
 				case 'connection':
-					echo exec("uci get sabai.wan.proto");
+					return exec("uci get sabai.wan.proto");
 					break;
 				case 'ip':
-					exec("ifconfig -a enp3s0",$out);
-					preg_match('/inet addr:(.*?)Bcast:/', $out[1], $match);
-					echo trim($match[1]);
+					return str_replace("inet addr:","", ( array_key_exists(1,$out)? "$out[1]" : "-" ) );
 					break;
 				case 'subnet':
-					exec("ifconfig -a enp3s0",$out);
-					$mask=strpos($out[1],'Mask:');
-					echo substr($out[1],$mask+5,strlen($out[1]));
+					return exec("ifconfig eth0 | grep Mask | awk '{print $4}' |sed 's/Mask://g'");
 					break;
 				case 'gateway':
-					exec("route -n | grep enp3s0 |  awk '{print $2}'",$out);
-					echo $out[0];
+					return exec("route -n | grep eth0 | grep UGH | awk '{print $2}'");
 					break;
 				case 'dns':
 					$vpn_stat=exec("uci get sabai.vpn.status");
@@ -64,21 +57,89 @@ function get_status($type=null,$param=null){
 					foreach ($servers as $server){
 						$output=$server.'</br>';
 					}
-					if(!empty($output)) echo $output;
+					if(!empty($output)) return $output;
 					break;
 			}
 		}
 		if($type=='lan'){
+			exec("/sbin/ifconfig br-lan | egrep -o \"HWaddr [A-Fa-f0-9:]*|inet addr:[0-9:.]*|UP BROADCAST RUNNING MULTICAST\"",$out);
+			switch ($param){
+				case 'mac':
+					return strtoupper(str_replace("HWaddr ","", ( array_key_exists(0,$out)? "$out[0]" : "-" ) ));
+					break;
+				case 'ip':
+					return str_replace("inet addr:","", ( array_key_exists(1,$out)? "$out[1]" : "-" ) );
+					break;
+				case 'subnet':
+					return exec("ifconfig br-lan | grep Mask | awk '{print $4}' |sed 's/Mask://g'");
+					break;
+				case 'dhcp':
+					return exec("if [ $(uci -p /var/state get sabai.dhcp.lan) = 'yes' ]; then echo 'server'; else echo 'off'; fi");
+					break;
+			}
 			
 		}
-		if($type=='Wireless'){
-				
+		if($type=='wl0'){
+			exec("/sbin/ifconfig wlan0 | egrep -o \"HWaddr [A-Fa-f0-9:]*|inet addr:[0-9:.]*|UP BROADCAST RUNNING MULTICAST\"",$out);
+			switch ($param){
+				case 'ssid':
+					return exec("uci get sabai.wlradio0.ssid");
+					break;
+				case 'mode':
+					return exec("iw wlan0 info | grep type | awk '{print $2}'");
+					break;
+				case 'security':
+					return exec("uci get sabai.wlradio0.encryption");
+					break;
+				case 'channel':
+					return exec("iw wlan0 info | grep channel | awk '{print $2}'");
+					break;
+				case 'width':
+					return exec("iw wlan0 info | grep channel | awk '{print $6,$7}' | sed 's/,//g'");
+					break;
+				case 'mac':
+					return strtoupper(str_replace("HWaddr ","", ( array_key_exists(0,$out)? "$out[0]" : "-" ) ));
+					break;
+			}
+		}
+		if($type=='wl1'){
+			switch ($param){
+				case 'ssid':
+					return exec("uci get sabai.wlradio1.ssid");
+					break;
+				case 'mode':
+					return exec("iw wlan1 info | grep type | awk '{print $2}'");
+					break;
+				case 'security':
+					return exec("uci get sabai.wlradio1.encryption");
+					break;
+				case 'channel':
+					return exec("iw wlan1 info | grep channel | awk '{print $2}'");
+					break;
+				case 'width':
+					return exec("iw wlan1 info | grep channel | awk '{print $6,$7}' | sed 's/,//g'");
+					break;
+			}
 		}
 		if($type=='vpn'){
-				
+			switch ($param){
+				case 'type':
+					return exec("uci get sabai.vpn.proto");
+					break;
+				case 'status':
+					return exec("uci get sabai.vpn.status");
+					break;
+			}
 		}
 		if($type=='proxy'){
-				
+			switch ($param){
+				case 'status':
+					return exec("uci get sabai.proxy.status");
+					break;
+				case 'port':
+					return exec("cat /etc/privoxy/config | grep listen-address | awk -F: '{print $2}'");
+					break;
+			}
 		}
 	}else{
 		return false;

@@ -32,10 +32,12 @@ jQuery(function($){
 	 */
 	$(document).ready(function() {
 		if ( window.location.pathname != '/' ){
-			var helpID=$('.help-popup').attr('href').substring(1);
-			var menuID='menu_'+helpID;
-		    $('#'+menuID).addClass('current-item');
-		    $('#'+menuID).parents('.sub-menu').addClass('show');
+			if($('.help-popup').length){
+				var helpID=$('.help-popup').attr('href').substring(1);
+				var menuID='menu_'+helpID;
+			    $('#'+menuID).addClass('current-item');
+			    $('#'+menuID).parents('.sub-menu').addClass('show');
+			}
 		}
 	});
 	
@@ -59,5 +61,27 @@ jQuery(function($){
 	 */
 	$(document).on( 'click', '.mfp-close-footer', function() {
 		$.magnificPopup.close();
+	});
+	
+	/*
+	 * Listen button click and call ajax function
+	 */
+	$(document).on('click', 'form button', function(e){
+		e.preventDefault(e);
+		var form=$(this).closest('form');
+		var buttonName=$(this).attr('name');
+		var action=$(this).val();
+		if(buttonName==='getResults'){
+			var ajaxUrl=location.protocol+'//'+document.domain+'/mvc/ajax.php';
+			var data=form.serialize()+'&action='+action;
+			$.ajax({
+				url: ajaxUrl,
+				type: 'POST',
+				data: data,
+				success: function(response){
+					console.log(response);
+				}
+			});
+		}
 	});
 })
