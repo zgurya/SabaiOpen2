@@ -36,8 +36,9 @@ class Router {
 			}
 		}
 		
-		if(isset($_GET['url']) && !empty($_GET['url'])){
+		if(isset($_GET['url']) && !empty($_GET['url']) && strlen($_GET['url'])>1){
 			$url=rtrim(strtolower($_GET['url']), '/');
+			if(substr($url,0,1)=='/')$url=substr($url,1);
 			$url=explode('/', $url);
 			$controller=$url[0];
 			
