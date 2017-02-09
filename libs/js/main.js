@@ -116,17 +116,27 @@ jQuery(function($){
 				type: 'POST',
 				data: data,
 				success: function(response){
-					var json=$.parseJSON(response);
-					var stats=json.pingStatistics.split(',');
-			        var info=json.pingInfo.split(',');
-			        $('#results #statistics').html('--Summary--<br><br>');
-			        $('#statistics').append('Round-Trip: '+stats[0]+' min, '+stats[1]+' avg, '+stats[2]+' max <br>');
-			        $('#statistics').append('Packets: '+info[0]+' transmitted, '+info[1]+' received, '+info[2]+'% lost<br><br>');
-			        
-			        $.each( json.pingResults, function(i,value) {
-			        	$('#resultTable').append('<tr class="dataRow"><td>'+value.count+'</td><td>'+value.bytes+'</td><td>'+value.count+'</td><td>'+value.time+'</td></tr>');
-			        });
-			        $('#resultTable').show();
+					if(action=='ping'){
+						var json=$.parseJSON(response);
+						var stats=json.pingStatistics.split(',');
+				        var info=json.pingInfo.split(',');
+				        $('#results #statistics').html('--Summary--<br><br>');
+				        $('#statistics').append('Round-Trip: '+stats[0]+' min, '+stats[1]+' avg, '+stats[2]+' max <br>');
+				        $('#statistics').append('Packets: '+info[0]+' transmitted, '+info[1]+' received, '+info[2]+'% lost<br><br>');
+				        
+				        $.each( json.pingResults, function(i,value) {
+				        	$('#resultTable').append('<tr class="dataRow"><td>'+value.count+'</td><td>'+value.bytes+'</td><td>'+value.count+'</td><td>'+value.time+'</td></tr>');
+				        });
+				        $('#resultTable').show();
+					}
+					if(action=='trace'){
+						$('#results #statistics').remove();
+						var json=$.parseJSON(response);
+						$.each( json.traceResults, function(i,value) {
+				        	$('#resultTable').append('<tr class="dataRow"><td>'+value.Hop+'</td><td>'+value.Address+'</td><td>'+value['Time (ms)']+'</td><td>'+value.Address2+'</td><td>'+value['Time2 (ms)']+'</td><td>'+value.Address3+'</td><td>'+value['Time3 (ms)']+'</td></tr>');
+				        });
+						$('#resultTable').show();
+					}
 				}
 			});
 		}

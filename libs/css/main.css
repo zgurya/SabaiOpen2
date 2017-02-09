@@ -745,15 +745,19 @@ body.login .form-submit input{
 #main table#resultTable tr.dataRow:nth-child(odd) td{
 	background-color: white;
 }
-.diagnostics-ping #main table#resultTable td{
+.diagnostics-ping #main table#resultTable th{
 	width: 75px;
+}
+.diagnostics-trace #main table#resultTable th{
+	width: 100px;
 }
 
 /*--------------------------------------------------------------
 8 - Footer
 --------------------------------------------------------------*/
 #footer > div{
-	margin: 30px 0;
+	padding-top: 30px;
+	padding-bottom: 30px;
 }
 
 /*--------------------------------------------------------------
