@@ -28,10 +28,8 @@ function route(){
 		);
 	}
 	
-	$out = array(
-			'routeResults' => $dataResult
-	);
+	$out = array('routeResults' => $dataResult);
 	
-	echo json_encode($out,JSON_PRETTY_PRINT);
+	return json_encode($out,JSON_PRETTY_PRINT);
 }
 ?>

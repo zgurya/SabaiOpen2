@@ -151,7 +151,11 @@ jQuery(function($){
 					$('#resultTable').show();
 				}
 				if(action=='nslookup'){
-					$('#results #statistics').html(response);
+					var json=$.parseJSON(response);
+					$('#results #statistics').html('');
+					$.each( json, function(i,value) {
+						$('#results #statistics').append(value+'<br>');
+					});
 				}
 				if(action=='route'){
 					var json=$.parseJSON(response);

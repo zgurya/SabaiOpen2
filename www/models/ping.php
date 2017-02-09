@@ -30,10 +30,10 @@ function ping($pingAddress=null,$pingCount=4,$pingSize=56){
 				'pingStatistics' => $statistics
 		);
 		
-		echo json_encode($out,JSON_PRETTY_PRINT);
+		return json_encode($out,JSON_PRETTY_PRINT);
 		
 	}else{
-		echo 'Enter ping address';
+		return 'Enter ping address';
 	}
 	
 }

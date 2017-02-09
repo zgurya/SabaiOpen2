@@ -72,9 +72,9 @@ function trace($traceAddress=null,$maxHops=4,$maxWait=56){
 		}
 		
 		$out = array('traceResults' => $dataResult);
-		echo json_encode($out,JSON_PRETTY_PRINT);
+		return json_encode($out,JSON_PRETTY_PRINT);
 	}else{
-		echo 'Enter ping address';
+		return 'Enter ping address';
 	}
 }
 ?>
