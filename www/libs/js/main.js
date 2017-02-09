@@ -101,47 +101,71 @@ jQuery(function($){
 	/*
 	 * Listen button click and call ajax function
 	 */
-	$(document).on('click', 'form button', function(e){
+	$(document).on('click', '.controlBoxContent button[name="getResults"]', function(e){
 		e.preventDefault(e);
-		var form=$(this).closest('form');
-		var buttonName=$(this).attr('name');
-		var action=$(this).val();
-		$('#results').show();
-		$('#results #statistics').text('Loading...');
-		if(buttonName==='getResults'){
-			var ajaxUrl=location.protocol+'//'+document.domain+':'+location.port+'/mvc/ajax.php';
-			var data=form.serialize()+'&action='+action;
-			$.ajax({
-				url: ajaxUrl,
-				type: 'POST',
-				data: data,
-				success: function(response){
-					if(action=='ping'){
-						var json=$.parseJSON(response);
-						var stats=json.pingStatistics.split(',');
-				        var info=json.pingInfo.split(',');
-				        $('#results #statistics').html('--Summary--<br><br>');
-				        $('#statistics').append('Round-Trip: '+stats[0]+' min, '+stats[1]+' avg, '+stats[2]+' max <br>');
-				        $('#statistics').append('Packets: '+info[0]+' transmitted, '+info[1]+' received, '+info[2]+'% lost<br><br>');
-				        
-				        $.each( json.pingResults, function(i,value) {
-				        	$('#resultTable').append('<tr class="dataRow"><td>'+value.count+'</td><td>'+value.bytes+'</td><td>'+value.count+'</td><td>'+value.time+'</td></tr>');
-				        });
-				        $('#resultTable').show();
-					}
-					if(action=='trace'){
-						$('#results #statistics').remove();
-						var json=$.parseJSON(response);
-						$.each( json.traceResults, function(i,value) {
-				        	$('#resultTable').append('<tr class="dataRow"><td>'+value.Hop+'</td><td>'+value.Address+'</td><td>'+value['Time (ms)']+'</td><td>'+value.Address2+'</td><td>'+value['Time2 (ms)']+'</td><td>'+value.Address3+'</td><td>'+value['Time3 (ms)']+'</td></tr>');
-				        });
-						$('#resultTable').show();
-					}
-					if(action=='nslookup'){
-						$('#results #statistics').html(response);
-					}
-				}
-			});
+		
+		if($('#resultTable tr.dataRow').length){
+			$('#resultTable tr.dataRow').each(function(){
+				$(this).remove();
+			})
 		}
+		if($('#results').length){
+			$('#results').hide();
+		}
+		if($('#resultTable').length){
+			$('#resultTable').hide();
+		}
+		
+		var form=$(this).closest('form');
+		var action=$(this).val();
+		if($('#results').length){
+			$('#results').show();
+			$('#results #statistics').html('Loading...');
+		}
+		var ajaxUrl=location.protocol+'//'+document.domain+':'+location.port+'/mvc/ajax.php';
+		var data=form.serialize()+'&action='+action;
+		$.ajax({
+			url: ajaxUrl,
+			type: 'POST',
+			data: data,
+			success: function(response){
+				if(action=='ping'){
+					var json=$.parseJSON(response);
+					var stats=json.pingStatistics.split(',');
+			        var info=json.pingInfo.split(',');
+			        $('#results #statistics').html('--Summary--<br><br>');
+			        $('#statistics').append('Round-Trip: '+stats[0]+' min, '+stats[1]+' avg, '+stats[2]+' max <br>');
+			        $('#statistics').append('Packets: '+info[0]+' transmitted, '+info[1]+' received, '+info[2]+'% lost<br><br>');
+			        
+			        $.each( json.pingResults, function(i,value) {
+			        	$('#resultTable').append('<tr class="dataRow"><td>'+value.count+'</td><td>'+value.bytes+'</td><td>'+value.count+'</td><td>'+value.time+'</td></tr>');
+			        });
+			        $('#resultTable').show();
+				}
+				if(action=='trace'){
+					$('#results #statistics').remove();
+					var json=$.parseJSON(response);
+					$.each( json.traceResults, function(i,value) {
+			        	$('#resultTable').append('<tr class="dataRow"><td>'+value.Hop+'</td><td>'+value.Address+'</td><td>'+value['Time (ms)']+'</td><td>'+value.Address2+'</td><td>'+value['Time2 (ms)']+'</td><td>'+value.Address3+'</td><td>'+value['Time3 (ms)']+'</td></tr>');
+			        });
+					$('#resultTable').show();
+				}
+				if(action=='nslookup'){
+					$('#results #statistics').html(response);
+				}
+				if(action=='route'){
+					var json=$.parseJSON(response);
+					$.each(json.routeResults, function(i,value) {
+						$('#resultTable').append('<tr class="dataRow"><td>'+value.destination+'</td><td>'+value.gateway+'</td><td>'+value.genmask+'</td><td>'+value.flags+'</td><td>'+value.mss+'</td><td>'+value.window+'</td><td>'+value.irtt+'</td><td>'+value.interface+'</td></tr>');
+					});
+					$('#resultTable').show();
+				}
+			}
+		});
 	});
+	$(document).ready(function() {
+		if ($('body.diagnostics-route').length){
+			$('.controlBoxContent button[name="getResults"]').trigger( "click" );
+		}
+	})
 })

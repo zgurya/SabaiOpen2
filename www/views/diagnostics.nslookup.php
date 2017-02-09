@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-lg-12">
-		<h2>VPN</h2>
+		<h2>NS Lookup</h2>
 		<div class="controlBoxContent">
 			<form action="." method="post" name="diagnostics.nslookup">
 				<div class="row">

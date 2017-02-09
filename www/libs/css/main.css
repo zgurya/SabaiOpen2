@@ -751,10 +751,12 @@ body.login .form-submit input{
 .diagnostics-trace #main table#resultTable th{
 	width: 100px;
 }
+.diagnostics-route #main table#resultTable th{
+	width: 100px;
+}
 .diagnostics-nslookup #main .controlBoxContent button{
 	height: 34px;
     margin-left: 15px;
-	
 }
 
 /*--------------------------------------------------------------
