@@ -137,6 +137,9 @@ jQuery(function($){
 				        });
 						$('#resultTable').show();
 					}
+					if(action=='nslookup'){
+						$('#results #statistics').html(response);
+					}
 				}
 			});
 		}
