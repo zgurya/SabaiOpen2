@@ -20,5 +20,16 @@
 				</div>
 			</form>
 		</div>
+		<div id='results' class='controlBoxContent hidden'>
+			<div id='statistics' class='smallText'></div>
+			<table id='resultTable' class='listTable hidden'>
+				<tr>
+					<th>Count</th>
+					<th>Bytes</th>
+					<th>TTL</th>
+					<th>Time</th>
+				</tr>
+			</table>
+		</div>
 	</div>
 </div>

@@ -255,7 +255,7 @@ template {
 	display: none;
 }
 
-[hidden] {
+[hidden], .hidden {
 	display: none;
 }
 * {
@@ -716,6 +716,9 @@ body.login .form-submit input{
 	display: table;
     width: 100%;
 }
+#main .controlBoxContent.hidden{
+	display: none;
+}
 #main table{
 	border-spacing: 0;
     border-collapse: collapse;
@@ -730,6 +733,20 @@ body.login .form-submit input{
 }
 .smallText{
 	font-size: .9em;
+}
+#main table#resultTable th{
+	cursor: pointer;
+}
+#main table#resultTable td{
+	border: 1px solid #CED7E1;
+	text-align: center;
+	font-size: .85em;
+}
+#main table#resultTable tr.dataRow:nth-child(odd) td{
+	background-color: white;
+}
+.diagnostics-ping #main table#resultTable td{
+	width: 75px;
 }
 
 /*--------------------------------------------------------------

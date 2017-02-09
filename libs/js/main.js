@@ -63,6 +63,41 @@ jQuery(function($){
 		$.magnificPopup.close();
 	});
 	
+	var table = $('#resultTable');
+    
+    table.find('th')
+        .wrapInner('<span title="sort this column"/>')
+        .each(function(){
+            
+            var th = $(this),
+                thIndex = th.index(),
+                inverse = false;
+            
+            th.click(function(){
+                
+                table.find('td').filter(function(){
+                    
+                    return $(this).index() === thIndex;
+                    
+                }).sortElements(function(a, b){
+                    
+                    return $.text([a]) > $.text([b]) ?
+                        inverse ? -1 : 1
+                        : inverse ? 1 : -1;
+                    
+                }, function(){
+                    
+                    // parentNode is the element we want to move
+                    return this.parentNode; 
+                    
+                });
+                
+                inverse = !inverse;
+                    
+            });
+                
+        });
+	
 	/*
 	 * Listen button click and call ajax function
 	 */
@@ -71,6 +106,8 @@ jQuery(function($){
 		var form=$(this).closest('form');
 		var buttonName=$(this).attr('name');
 		var action=$(this).val();
+		$('#results').show();
+		$('#results #statistics').text('Loading...');
 		if(buttonName==='getResults'){
 			var ajaxUrl=location.protocol+'//'+document.domain+':'+location.port+'/mvc/ajax.php';
 			var data=form.serialize()+'&action='+action;
@@ -79,7 +116,17 @@ jQuery(function($){
 				type: 'POST',
 				data: data,
 				success: function(response){
-					console.log(response);
+					var json=$.parseJSON(response);
+					var stats=json.pingStatistics.split(',');
+			        var info=json.pingInfo.split(',');
+			        $('#results #statistics').html('--Summary--<br><br>');
+			        $('#statistics').append('Round-Trip: '+stats[0]+' min, '+stats[1]+' avg, '+stats[2]+' max <br>');
+			        $('#statistics').append('Packets: '+info[0]+' transmitted, '+info[1]+' received, '+info[2]+'% lost<br><br>');
+			        
+			        $.each( json.pingResults, function(i,value) {
+			        	$('#resultTable').append('<tr class="dataRow"><td>'+value.count+'</td><td>'+value.bytes+'</td><td>'+value.count+'</td><td>'+value.time+'</td></tr>');
+			        });
+			        $('#resultTable').show();
 				}
 			});
 		}
