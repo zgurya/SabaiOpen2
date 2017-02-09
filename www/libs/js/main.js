@@ -163,6 +163,9 @@ jQuery(function($){
 				if(action=='console'){
 					$('#results #statistics').html(response);
 				}
+			},
+			error: function(xhr, desc, err) {
+				console.log(xhr + "\n" + err);
 			}
 		});
 	});
