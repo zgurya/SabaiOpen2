@@ -160,6 +160,9 @@ jQuery(function($){
 					});
 					$('#resultTable').show();
 				}
+				if(action=='console'){
+					$('#results #statistics').html(response);
+				}
 			}
 		});
 	});
