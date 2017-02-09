@@ -723,6 +723,7 @@ body.login .form-submit input{
 #main table .statusCellName {
     border-right: solid 2px #bdbdbd;
     padding-right: 10px;
+    vertical-align: top;
 }
 #main table .statusCellContent{
 	padding-left: 10px;

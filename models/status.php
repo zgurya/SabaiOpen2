@@ -1,4 +1,4 @@
-<?php 
+<?php
 function get_status($type=null,$param=null){
 	if($type){
 		if($type=='system'){
@@ -54,10 +54,10 @@ function get_status($type=null,$param=null){
 					} else {
 						exec("cat /tmp/resolv.conf.auto | grep nameserver | awk '{print $2}' | tr '\n' ' ' ",$servers);
 					}
-					foreach ($servers as $server){
-						$output=$server.'</br>';
+					if(isset($servers[0])){
+						$output=str_replace(' ','</br>',$servers[0]);
 					}
-					if(!empty($output)) return $output;
+					if(isset($output) && !empty($output)) return $output;
 					break;
 			}
 		}
@@ -77,7 +77,7 @@ function get_status($type=null,$param=null){
 					return exec("if [ $(uci -p /var/state get sabai.dhcp.lan) = 'yes' ]; then echo 'server'; else echo 'off'; fi");
 					break;
 			}
-			
+				
 		}
 		if($type=='wl0'){
 			exec("/sbin/ifconfig wlan0 | egrep -o \"HWaddr [A-Fa-f0-9:]*|inet addr:[0-9:.]*|UP BROADCAST RUNNING MULTICAST\"",$out);
