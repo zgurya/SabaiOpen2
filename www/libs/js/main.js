@@ -164,6 +164,14 @@ jQuery(function($){
 					});
 					$('#resultTable').show();
 				}
+				if(action=='logs'){
+					if($('.controlBoxContent select[name="act"]').val()=='download'){
+						$('#results #statistics').html('<a href="'+response+'" download>File</a>');
+					}else{
+						$('#results #statistics').html(response);
+					}
+					
+				}
 				if(action=='console'){
 					$('#results #statistics').html(response);
 				}
@@ -173,9 +181,36 @@ jQuery(function($){
 			}
 		});
 	});
+	
+	/*
+	 * Add click trigger at Diagnostic Route page
+	 */
 	$(document).ready(function() {
 		if ($('body.diagnostics-route').length){
 			$('.controlBoxContent button[name="getResults"]').trigger( "click" );
 		}
-	})
+	});
+	
+	/*
+	 * Listen change select option at Diagnostic Logs page
+	 */
+	$(document).on('change', '.controlBoxContent select[name="act"]', function(e){
+		$('.controlBoxContent #detailSuffix').hide();
+		$('.controlBoxContent #detail').show().val('');
+		switch($('.controlBoxContent select[name="act"]').val()){
+			case 'all':
+			case 'download':
+				$('.controlBoxContent #detail').hide();
+			break;
+			case 'head':
+			case 'tail':
+				$('.controlBoxContent #detail').show().val('25');
+				$('.controlBoxContent #detailSuffix').html(' lines');
+				$('.controlBoxContent #detailSuffix').show();
+			break;
+			case 'grep':
+				$('.controlBoxContent #detail').show().val('');
+				break;
+		}
+	});
 })

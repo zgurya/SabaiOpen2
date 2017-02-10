@@ -760,6 +760,13 @@ body.login .form-submit input{
 	height: 34px;
     margin-left: 15px;
 }
+.diagnostics-logs #main .enter-values > *, .diagnostics-logs #main button{
+	height: 34px;
+	margin-right: 15px;
+	vertical-align: middle;
+    line-height: 34px;
+}
+
 
 /*--------------------------------------------------------------
 8 - Footer
