@@ -767,6 +767,48 @@ body.login .form-submit input{
     line-height: 34px;
 }
 
+.network-wan .tabs span{
+	display: inline-block;
+    border-style: solid;
+    border-color: silver;
+    border-image: initial;
+    border-width: 1px;
+    padding: 0.5em 0.75em;
+    color: rgb(77, 165, 224);
+    cursor: pointer;
+    background: -webkit-linear-gradient(top, rgb(240, 243, 246) 50%, rgb(229, 229, 229) 99%);
+}
+.network-wan .tabs span:hover, .network-wan .tabs span.selected:hover{
+	color: rgb(23, 87, 130);
+    border-color: transparent;
+    background: -webkit-linear-gradient(bottom, rgb(245, 188, 56), rgb(249, 217, 144));
+}
+.network-wan .tabs span:first-child{
+	border-radius: 8px 0px 0px 8px;
+	border-right: 0px;
+}
+.network-wan .tabs span:last-child{
+    border-radius: 0px 8px 8px 0px;
+    border-left: 0px;
+}
+.network-wan .tabs span.selected{
+	color: white;
+    border-color: transparent;
+    background: -webkit-linear-gradient(top, rgb(79, 165, 224), rgb(27, 117, 187));
+}
+.network-wan .controlBoxContent .row.hidden{
+	display: none;
+}
+.controlBoxContent .clear-field{
+	line-height: 34px;
+	vertical-align: middle;
+	color: #1B75BB;
+	padding-left: 10px;
+	cursor: pointer;
+}
+.controlBoxContent .dns_servers > input{
+	margin-bottom: 15px;
+}
 
 /*--------------------------------------------------------------
 8 - Footer

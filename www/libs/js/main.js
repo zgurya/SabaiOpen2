@@ -213,4 +213,37 @@ jQuery(function($){
 				break;
 		}
 	});
+	
+	/*
+	 * Network WAN. Tabs
+	 */
+	$(document).on('click', '.network-wan .tabs span', function(e){
+		e.preventDefault(e);
+		var clickedTab=$(this);
+		var clickedID=clickedTab.attr('id');
+		clickedTab.parent().find('span').removeClass('selected');
+		clickedTab.addClass('selected');
+		clickedTab.parents('.controlBoxContent').find('.wan-proto').each(function(){
+			if($(this).hasClass(clickedID)){
+				$(this).removeClass('hidden');
+			}else{
+				$(this).addClass('hidden');
+			}
+		});
+	});
+	
+	/*
+	 * Network WAN. Clear
+	 */
+	$(document).on('click', '.network-wan .clear-field', function(e){
+		$(this).prev().val('');
+	});
+	
+	/*
+	 * Network WAN. Save
+	 */
+	$(document).on('click', '.network-wan button[name="saveResults"]', function(e){
+		
+	});
+	
 })
