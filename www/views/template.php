@@ -16,7 +16,7 @@
 	<script type="text/javascript" src="<?php echo SITE_URL;?>/libs/js/main.js"></script>
 </head>
 <body class="<?php echo str_replace('.','-',$this->tmplf);?>">
-<div class="overlay"></div>
+<div class="overlay"></div> 
 <?php if($this->tmplf!='login'):?>
 	<div class="container">
 		<div class="row">
