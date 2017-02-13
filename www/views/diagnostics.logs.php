@@ -6,7 +6,7 @@
 			<div class="row enter-values row">
 				<select id="log" class="col-lg-2 col-md-2 col-sm-2" name="log">
 					<option value="messages" selected>System log</option>
-					<option value="privoxy">Privoxy log</option>
+					<option value="privoxy.log">Privoxy log</option>
 					<option value="kernel">Kernel log</option>
 				</select>
 				<select id="act" name="act" class="col-lg-2 col-md-2 col-sm-2">
