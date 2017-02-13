@@ -92,9 +92,9 @@
 					<div class="col-lg-4" id="stats">
 						<div class="row">
 							<div class="col-lg-4" id="locstats">
-								<div id="locquery">5.53.119.222</div>
-								<div id="loccity">Kiev</div>
-								<div id="loccountry">Ukraine</div>
+								<div id="locquery"><?php echo get_status('system','remote_ip');?></div>
+								<div id="loccity"><?php echo get_status('system','remote_city');?></div>
+								<div id="loccountry"><?php echo get_status('system','remote_country');?></div>
 							</div>
 							<div class="col-lg-4" id="vpnstats">
 								<div id="vpntype">VPN</div>

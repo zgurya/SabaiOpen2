@@ -2,6 +2,28 @@
 function get_status($type=null,$param=null){
 	if($type){
 		if($type=='system'){
+				
+			$arrContextOptions=array(
+					"ssl"=>array(
+							"cafile" => "/etc/php5/ca-bundle.crt",
+							"verify_peer"=>true,
+							"verify_peer_name"=>true,
+					),
+			);
+			// get the location update url
+			$URIfile=exec("uci get sabai.general.updateuri");
+			// if it doesn't exist, create it
+			if(isset($URIfile)&&!empty($URIfile)){
+				$URI=file_exists($URIfile)?file_get_contents($URIfile):'http://ip-api.com/json';
+			}
+			//get current location
+			if(isset($URI)&&!empty($URI)){
+				$get_ip=@file_get_contents($URI, false, stream_context_create($arrContextOptions));
+				$ip=str_replace(array("'", " ="),array("", ":"),$get_ip);
+				// store it in a stat file
+				file_put_contents("/etc/sabai/stat/ip",$ip);
+				$ip=json_decode($ip);
+			}
 			switch ($param){
 				case 'name':
 					return exec("hostname");
@@ -27,6 +49,15 @@ function get_status($type=null,$param=null){
 				case 'gateway':
 					return exec("ip route show | grep default | awk '{print $3}'");
 					break;
+				case 'remote_ip':
+					return (isset($ip)&&!empty($ip))?$ip->query:'-';
+					break;
+				case 'remote_city':
+					return (isset($ip)&&!empty($ip))?$ip->city:'-';
+					break;
+				case 'remote_country':
+					return (isset($ip)&&!empty($ip))?$ip->country:'-';
+					break;
 			}
 		}
 		if($type=='wan'){
@@ -46,6 +77,9 @@ function get_status($type=null,$param=null){
 					break;
 				case 'gateway':
 					return exec("route -n | grep eth0 | grep UGH | awk '{print $2}'");
+					break;
+				case 'mtu':
+					return exec("uci get sabai.wan.mtu");
 					break;
 				case 'dns':
 					$vpn_stat=exec("uci get sabai.vpn.status");
