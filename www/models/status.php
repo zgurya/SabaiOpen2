@@ -86,10 +86,10 @@ function get_status($type=null,$param=null){
 					if ( ($vpn_stat == 'Connected') && (file_exists('/tmp/resolv.conf.vpn')) && (filesize('/tmp/resolv.conf.vpn') != 0) ) {
 						exec("cat /tmp/resolv.conf.vpn | grep nameserver | awk '{print $2}' | tr '\n' ' ' ",$servers);
 					} else {
-						exec("cat /tmp/resolv.conf.auto | grep nameserver | awk '{print $2}' | tr '\n' ' ' ",$servers);
+						exec("cat /tmp/resolv.conf.auto | sed -n -e '/wan/,\$p'| grep nameserver | awk '{print $2}' | tr '\n' ' ' ",$servers);
 					}
 					if(isset($servers[0])){
-						$output=str_replace(' ','</br>',$servers[0]);
+						$output=explode(' ',$servers[0]);
 					}
 					if(isset($output) && !empty($output)) return $output;
 					break;

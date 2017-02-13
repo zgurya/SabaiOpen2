@@ -77,7 +77,7 @@
 						<tbody class="smallText">
 							<tr>
 								<td class="statusCellName"><b>DNS Servers</b></td>
-								<td class="statusCellContent" id="wan_dns"><?php echo get_status('wan','dns');?></td>
+								<td class="statusCellContent" id="wan_dns"><?php foreach (get_status('wan','dns') as $dns_server) echo $dns_server.'</br>';?></td>
 							</tr>
 						</tbody>
 					</table>
