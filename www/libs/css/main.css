@@ -264,6 +264,7 @@ template {
     box-sizing: border-box;
 }
 
+
 /*--------------------------------------------------------------
 2 - Grids
 --------------------------------------------------------------*/
@@ -491,6 +492,18 @@ h1 {
 form .row{
 	margin-bottom: 10px;
 }
+.overlay{
+	opacity:0.7;
+    filter: alpha(opacity=20);
+    background:#000;
+    width:100%; 
+    height:100%; 
+    z-index:10;
+    top:0; 
+    left:0; 
+    position:fixed;
+    display: none;
+}
 
 /*--------------------------------------------------------------
 4 - Menu
@@ -696,7 +709,71 @@ body.login .form-submit input{
     background-color: #e6e6e6;
     border-color: #adadad;
 }
-
+#main .from-field{
+	position: relative;
+}
+#main .from-field input, .from-field textarea{
+	width: 100%;	
+}
+#main .from-field.margin input, .from-field.margin textarea{
+	margin-bottom: 15px;
+}
+#main .from-field.margin:before{
+	bottom: 50px;
+}
+#main .from-field.margin:after{
+	bottom:55px;
+}
+#main .from-field:before{
+	content:'';
+	/* hides the tooltip when not hovered */
+	display:none;
+	content:'';
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 0;
+	border-top: 5px solid #1a1a1a;
+	position:absolute;
+	bottom: 35px;
+	left:5px;
+	z-index:8;
+	font-size:0;
+	line-height:0;
+	width:0;
+	height:0;
+}
+#main .from-field:after {
+	display:none;
+	content:attr(data-tip);
+	position:absolute;
+	bottom:40px;
+	left:0px;
+	padding:5px 8px;
+	background:#1a1a1a;
+	color:#fff;
+	z-index:9;
+	font-size: 0.75em;
+	height:18px;
+	line-height:18px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	white-space:nowrap;
+	word-wrap:normal;
+}
+#main .from-field.error:before,
+#main .from-field.error:after {
+	display:block;
+}
+#main .save-form-btn{
+	margin-right: 15px;
+}
+#main .result-msg > div{
+	font-size: 20px;
+    color: #1B75BB;
+    padding: 15px 0;
+    text-align: center;
+}
 #main .col-lg-12 h2{
 	color: #1B75BB;
 	background: #CED7E1;
