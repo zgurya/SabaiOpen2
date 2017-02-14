@@ -28,13 +28,21 @@
 					<label class="col-lg-2 col-md-4 col-sm-4" for="system_gateway">Gateway:</label>
 					<span class="col-lg-2 col-md-4 col-sm-4 from-field" data-tip="Enter correct data"><input id="system_gateway" name="system_gateway" type="text" value="<?php echo get_status('system','gateway');?>" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"></span>
 				</div>
-				<div class="row wan-proto static dhcp lan">
+				<div class="row wan-proto static dhcp">
 					<label class="col-md-4 col-lg-2 col-sm-4" for="wan_mtu">MTU:</label>
-					<span class="col-lg-2 col-md-4 col-sm-4 from-field" data-tip="Enter correct data"><input id="wan_mtu" name="wan_mtu" type="number" value="" min="576" max="1500" required></span>
+					<span class="col-lg-2 col-md-4 col-sm-4 from-field" data-tip="Enter correct data"><input id="wan_mtu" name="wan_mtu" type="number" value="<?php echo get_status('wan','mtu');?>" min="576" max="1500" required></span>
 				</div>
-				<div class="row wan-proto static dhcp lan">
+				<div class="row wan-proto static dhcp">
 					<label class="col-md-4 col-lg-2 col-sm-4" for="wan_mac">MAC:</label>
 					<span class="col-lg-2 col-md-4 col-sm-4 from-field" data-tip="Enter correct data"><input id="wan_mac" name="wan_mac" value="<?php echo get_status('wan','mac');?>" required pattern="^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$"></span>
+				</div>
+				<div class="row wan-proto lan hidden">
+					<label class="col-md-4 col-lg-2 col-sm-4" for="lan_mtu">MTU:</label>
+					<span class="col-lg-2 col-md-4 col-sm-4 from-field" data-tip="Enter correct data"><input id="lan_mtu" name="lan_mtu" type="number" value="<?php echo get_status('lan','mtu');?>" min="576" max="1500" required></span>
+				</div>
+				<div class="row wan-proto lan hidden">
+					<label class="col-md-4 col-lg-2 col-sm-4" for="lan_mac">MAC:</label>
+					<span class="col-lg-2 col-md-4 col-sm-4 from-field" data-tip="Enter correct data"><input id=lan_mac name="lan_mac" value="<?php echo get_status('lan','mac');?>" required pattern="^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$"></span>
 				</div>
 			</div>
 		</div>
