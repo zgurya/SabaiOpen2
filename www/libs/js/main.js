@@ -105,69 +105,33 @@ jQuery(function($){
 	 * Timeout recheck data
 	 */
     window.setInterval(function(){
-    	$.ajax({
-			url: ajaxUrl,
-			type: 'POST',
-			data: {
-				action: 'status',
-				type: 'system',
-				param: 'remote_ip'
-			},
-			success: function(response){
-				$('#top-panel #locstats #locquery').text(response);
-			},
-			error: function(xhr, desc, err) {
-				console.log(xhr + "\n" + err);
-			}
-		});
-    	$.ajax({
-			url: ajaxUrl,
-			type: 'POST',
-			data: {
-				action: 'status',
-				type: 'system',
-				param: 'remote_city'
-			},
-			success: function(response){
-				$('#top-panel #locstats #loccity').text(response);
-			},
-			error: function(xhr, desc, err) {
-				console.log(xhr + "\n" + err);
-			}
-		});
-    	$.ajax({
-			url: ajaxUrl,
-			type: 'POST',
-			data: {
-				action: 'status',
-				type: 'system',
-				param: 'remote_country'
-			},
-			success: function(response){
-				$('#top-panel #locstats #loccountry').text(response);
-			},
-			error: function(xhr, desc, err) {
-				console.log(xhr + "\n" + err);
-			}
-		});
-    	if($('body.administration-status').length){
-    		$.ajax({
-    			url: ajaxUrl,
-    			type: 'POST',
-    			data: {
-    				action: 'status',
-    				type: 'system',
-    				param: 'time'
-    			},
-    			success: function(response){
-    				$('#sys_time').text(response);
-    			},
-    			error: function(xhr, desc, err) {
-    				console.log(xhr + "\n" + err);
-    			}
-    		});
-    	}
+    	get_ajax_data('status','system','remote_ip','#top-panel #locstats #locquery');
+    	get_ajax_data('status','system','remote_city','#top-panel #loccity #locquery');
+    	get_ajax_data('status','system','remote_country','#top-panel #loccountry #locquery');
+    	if($('body.administration-status').length) get_ajax_data('status','system','time','#sys_time');
 	}, 3000);
+    
+    window.setInterval(function(){
+    	if($('body.network-time').length) get_ajax_data('status','system','time','#sys_time')
+    }, 1000);
+    
+    function get_ajax_data(action,type,param,dest){
+    	$.ajax({
+			url: ajaxUrl,
+			type: 'POST',
+			data: {
+				action: action,
+				type: type,
+				param: param
+			},
+			success: function(response){
+				$(dest).text(response);
+			},
+			error: function(xhr, desc, err) {
+				console.log(xhr + "\n" + err);
+			}
+		});
+    }
     
 	/*
 	 * Listen button click and call ajax function
