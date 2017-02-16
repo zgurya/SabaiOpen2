@@ -3,10 +3,6 @@
 		<div class="col-lg-12">
 			<h2>WAN</h2>
 			<div class="controlBoxContent">
-				<div class="row result-msg hidden">
-					<div class="col-lg-12 col-md-12 col-sm-12">
-					</div>
-				</div>
 				<div class="row">
 					<div class="col-lg-2 col-md-4 col-sm-4">
 					 	<label>WAN proto</label>
@@ -38,7 +34,7 @@
 				</div>
 				<div class="row wan-proto lan hidden">
 					<label class="col-md-4 col-lg-2 col-sm-4" for="lan_mtu">MTU:</label>
-					<span class="col-lg-2 col-md-4 col-sm-4 from-field" data-tip="Enter correct data"><input id="lan_mtu" name="lan_mtu" type="number" value="<?php echo get_status('lan','mtu');?>" min="576" max="1500" required></span>
+					<span class="col-lg-2 col-md-4 col-sm-4 from-field" data-tip="Enter correct data"><input id="lan_mtu" name="lan_mtu" type="number" value="<?php echo get_status('lan','mtu');?>" min="576" max="1500"></span>
 				</div>
 				<div class="row wan-proto lan hidden">
 					<label class="col-md-4 col-lg-2 col-sm-4" for="lan_mac">MAC:</label>
@@ -70,8 +66,11 @@
 			</div>
 		</div>
 	</div>
+	<div class="row result-msg hidden">
+		<div class="col-lg-12 col-md-12 col-sm-12"></div>
+	</div>
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-12">	
 			<button type="button" value="save" class="save-form-btn" name="saveResults">Save</button><button type="button" name="cancel">Cancel</button>
 		</div>
 	</div>
