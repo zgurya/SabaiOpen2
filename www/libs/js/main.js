@@ -1,4 +1,6 @@
 jQuery(function($){
+	var ajaxUrl=location.protocol+'//'+document.domain+':'+location.port+'/mvc/ajax.php';
+	
 	/*
 	 * Login form
 	 */
@@ -98,6 +100,75 @@ jQuery(function($){
                 
         });
 	
+    
+    /*
+	 * Timeout recheck data
+	 */
+    window.setInterval(function(){
+    	$.ajax({
+			url: ajaxUrl,
+			type: 'POST',
+			data: {
+				action: 'status',
+				type: 'system',
+				param: 'remote_ip'
+			},
+			success: function(response){
+				$('#top-panel #locstats #locquery').text(response);
+			},
+			error: function(xhr, desc, err) {
+				console.log(xhr + "\n" + err);
+			}
+		});
+    	$.ajax({
+			url: ajaxUrl,
+			type: 'POST',
+			data: {
+				action: 'status',
+				type: 'system',
+				param: 'remote_city'
+			},
+			success: function(response){
+				$('#top-panel #locstats #loccity').text(response);
+			},
+			error: function(xhr, desc, err) {
+				console.log(xhr + "\n" + err);
+			}
+		});
+    	$.ajax({
+			url: ajaxUrl,
+			type: 'POST',
+			data: {
+				action: 'status',
+				type: 'system',
+				param: 'remote_country'
+			},
+			success: function(response){
+				$('#top-panel #locstats #loccountry').text(response);
+			},
+			error: function(xhr, desc, err) {
+				console.log(xhr + "\n" + err);
+			}
+		});
+    	if($('body.administration-status').length){
+    		$.ajax({
+    			url: ajaxUrl,
+    			type: 'POST',
+    			data: {
+    				action: 'status',
+    				type: 'system',
+    				param: 'time'
+    			},
+    			success: function(response){
+    				$('#sys_time').text(response);
+    			},
+    			error: function(xhr, desc, err) {
+    				console.log(xhr + "\n" + err);
+    			}
+    		});
+    	}
+	}, 3000);
+    
 	/*
 	 * Listen button click and call ajax function
 	 */
@@ -122,7 +193,6 @@ jQuery(function($){
 			$('#results').show();
 			$('#results #statistics').html('Loading...');
 		}
-		var ajaxUrl=location.protocol+'//'+document.domain+':'+location.port+'/mvc/ajax.php';
 		var data=form.serialize()+'&action='+action;
 		$.ajax({
 			url: ajaxUrl,
@@ -253,10 +323,8 @@ jQuery(function($){
 			}
 		});
 		if(validForm){
-			console.log('Submit');
 			$('.overlay').show();
 			$('body').css('cursor','wait');
-			var ajaxUrl=location.protocol+'//'+document.domain+':'+location.port+'/mvc/ajax.php';
 			var data=form.serialize()+'&action=wan';
 			$.ajax({
 				url: ajaxUrl,

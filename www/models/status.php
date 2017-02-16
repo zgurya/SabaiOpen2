@@ -3,27 +3,12 @@ function get_status($type=null,$param=null){
 	if($type){
 		if($type=='system'){
 				
-			$arrContextOptions=array(
-					"ssl"=>array(
-							"cafile" => "/etc/php5/ca-bundle.crt",
-							"verify_peer"=>true,
-							"verify_peer_name"=>true,
-					),
-			);
-			// get the location update url
-			$URIfile=exec("uci get sabai.general.updateuri");
-			// if it doesn't exist, create it
-			if(isset($URIfile)&&!empty($URIfile)){
-				$URI=file_exists($URIfile)?file_get_contents($URIfile):'http://ip-api.com/json';
+			if(file_exists('/etc/sabai/stat/ip')){
+				$get_ip=file_get_contents('/etc/sabai/stat/ip', false, stream_context_create($arrContextOptions));
+				$data=str_replace(array("'", " ="),array("", ":"),$get_ip);
+				$ip=json_decode($data);
 			}
-			//get current location
-			if(isset($URI)&&!empty($URI)){
-				$get_ip=@file_get_contents($URI, false, stream_context_create($arrContextOptions));
-				$ip=str_replace(array("'", " ="),array("", ":"),$get_ip);
-				// store it in a stat file
-				file_put_contents("/etc/sabai/stat/ip",$ip);
-				$ip=json_decode($ip);
-			}
+				
 			switch ($param){
 				case 'name':
 					return exec("hostname");
