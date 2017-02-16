@@ -358,4 +358,4 @@ jQuery(function($){
 	$(document).on('click', 'button[name="cancel"]', function(e){
 		window.location.href = location.protocol+'//'+document.domain+':'+location.port;
 	});
-})
+}) 
