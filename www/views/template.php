@@ -16,7 +16,7 @@
 	<script type="text/javascript" src="<?php echo SITE_URL;?>/libs/js/main.js"></script>
 </head>
 <body class="<?php echo str_replace('.','-',$this->tmplf);?>">
-<div class="overlay"></div> 
+<div class="overlay"></div>
 <?php if($this->tmplf!='login'):?>
 	<div class="container">
 		<div class="row">
@@ -82,7 +82,7 @@
 			</div>
 			<div class="col-lg-10">
 				<div id="top-panel" class="row">
-					<div class="col-lg-8">
+					<div class="col-lg-7">
 						<a href="<?php echo '#'.str_replace('.', '-', $this->tmplf);?>" class="help-popup">
 							<img alt="help" src="<?php echo SITE_URL;?>/libs/images/help.png" class="help">
 						</a>
@@ -90,7 +90,7 @@
 							<h1><?php echo $this->title;?></h1>
 						<?php endif;?>
 					</div>
-					<div class="col-lg-4" id="stats">
+					<div class="col-lg-5" id="stats">
 						<div class="row">
 							<div class="col-lg-4" id="locstats">
 								<div id="locquery"><?php echo get_status('system','remote_ip');?></div>

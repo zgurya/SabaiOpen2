@@ -827,7 +827,13 @@ body.login .form-submit input{
 #main table#resultTable tr.dataRow:nth-child(odd) td{
 	background-color: white;
 }
-
+.overlay .content{
+	margin-top: 40vh;
+    text-align: center;
+    font-size: 30px;
+    min-width: 300px;
+    color: #fff;
+}
 
 /*--------------------------------------------------------------
 7.1 - Diagnostics. Ping
