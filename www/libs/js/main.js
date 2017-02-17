@@ -13,7 +13,15 @@ jQuery(function($){
 		if ($('body.diagnostics-route').length) $('.controlBoxContent button[name="getResults"]').trigger( "click" );
 		
 		if ($('img#timezone-image').length){
-			$('img#timezone-image').maphilight();
+			$('#timezone-image').timezonePicker({
+				target: '#edit-date-default-timezone',
+				countryTarget: '#edit-site-default-country'
+			});
+
+			// Optionally an auto-detect button to trigger JavaScript geolocation.
+			$('#timezone-detect').click(function() {
+				$('#timezone-image').timezonePicker('detectLocation');
+			});
 		}
 	});
 	
