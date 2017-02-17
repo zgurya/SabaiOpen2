@@ -1,5 +1,10 @@
 jQuery(function($){
 	var ajaxUrl=location.protocol+'//'+document.domain+':'+location.port+'/mvc/ajax.php';
+	new Date();
+	
+	$(document).ready(function() {	
+		if($('body.network-time').length) $('#user_time').text(Date());
+	});
 	
 	/*
 	 * Login form
@@ -113,6 +118,7 @@ jQuery(function($){
     
     window.setInterval(function(){
     	if($('body.network-time').length) get_ajax_data('status','system','time','#sys_time')
+    	if($('body.network-time').length) $('#user_time').text(Date());
     }, 1000);
     
     function get_ajax_data(action,type,param,dest){

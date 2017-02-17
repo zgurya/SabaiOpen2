@@ -7,6 +7,6 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h2>Current Computer Time and Timezone</h2>
-		<div class="controlBoxContent"></div>
+		<div class="controlBoxContent" id="user_time"></div>
 	</div>
 </div>
