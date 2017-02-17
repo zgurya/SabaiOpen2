@@ -2,8 +2,19 @@ jQuery(function($){
 	var ajaxUrl=location.protocol+'//'+document.domain+':'+location.port+'/mvc/ajax.php';
 	new Date();
 	
-	$(document).ready(function() {	
+	/*
+	 * Document.Ready - init action
+	 */
+	$(document).ready(function() {
+		/* Network.Time - Current Computer Time and Timezone */
 		if($('body.network-time').length) $('#user_time').text(Date());
+		
+		/* Diagnostic.Route - Add click trigger at  page */
+		if ($('body.diagnostics-route').length) $('.controlBoxContent button[name="getResults"]').trigger( "click" );
+		
+		if ($('img#timezone-image').length){
+			$('img#timezone-image').maphilight();
+		}
 	});
 	
 	/*
@@ -223,15 +234,6 @@ jQuery(function($){
 	});
 	
 	/*
-	 * Add click trigger at Diagnostic Route page
-	 */
-	$(document).ready(function() {
-		if ($('body.diagnostics-route').length){
-			$('.controlBoxContent button[name="getResults"]').trigger( "click" );
-		}
-	});
-	
-	/*
 	 * Listen change select option at Diagnostic Logs page
 	 */
 	$(document).on('change', '.controlBoxContent select[name="act"]', function(e){
@@ -295,6 +297,7 @@ jQuery(function($){
 		if(validForm){
 			$('.overlay').show();
 			$('body').css('cursor','wait');
+			$('.overlay .content').text('Applying settings...');
 			var data=form.serialize()+'&action=wan';
 			$.ajax({
 				url: ajaxUrl,
@@ -327,5 +330,40 @@ jQuery(function($){
 	 */
 	$(document).on('click', 'button[name="cancel"]', function(e){
 		window.location.href = location.protocol+'//'+document.domain+':'+location.port;
+	});
+	
+	/*
+	 * Network.Time - Synchronize
+	 */
+	$(document).on('click', '.network-time button[name="synchronize"]', function(e){
+		$('.overlay').show();
+		$('body').css('cursor','wait');
+		$('.overlay .content').text('Synchronization in process...');
+		var currTZ = jstz.determine();
+		$.ajax({
+			url: ajaxUrl,
+			type: 'POST',
+			data: {
+				action: 'synchronize_time',
+				sync: currTZ.name()
+			},
+			success: function(response){
+				if(response!=""){
+					setTimeout(function() {
+						$('.overlay').hide();
+						$('body').css('cursor','default');
+						var json=$.parseJSON(response);
+						$('#synchronize-result').text(json.msg);
+					}, 3000);
+				};
+			},
+			error: function(xhr, desc, err) {
+				$('.overlay').hide();
+				$('body').css('cursor','default');
+				console.log(xhr + "\n" + err);
+			}
+		});
+		//$('#edit-date-default-timezone').val(currTZ.name());
+		//setTimeout("window.location.reload()",1000);
 	});
 })
