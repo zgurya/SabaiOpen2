@@ -12,15 +12,30 @@ jQuery(function($){
 		/* Diagnostic.Route - Add click trigger at  page */
 		if ($('body.diagnostics-route').length) $('.controlBoxContent button[name="getResults"]').trigger( "click" );
 		
-		if ($('img#timezone-image').length){
-			$('#timezone-image').timezonePicker({
-				target: '#edit-date-default-timezone',
-				countryTarget: '#edit-site-default-country'
+		/* Network.Time - NTP */		
+		$.getJSON( location.protocol+'//'+document.domain+':'+location.port+'/libs/data/network.time.json', function( data ) {
+			$.each( data.aaData, function( key, val ) {
+				$('#ntpTable').append('<tr class="dataRow"><td>'+val.ntp_server+'</td></tr>');
+				//console.log(val);
 			});
+		});
+		
+		/* Network.Time - TimeZone Picker image */
+		if ($('#timezone-image').length){
+			$('#timezone-image').timezonePicker({
+		        target: '#edit-date-default-timezone',
+		        countryTarget: '#edit-site-default-country'
+		    });
+			$('#edit-date-default-timezone').val($('#edit-date-default-timezone').data('default'));
 
 			// Optionally an auto-detect button to trigger JavaScript geolocation.
 			$('#timezone-detect').click(function() {
-				$('#timezone-image').timezonePicker('detectLocation');
+				var currTZ = jstz.determine();
+				$('#edit-date-default-timezone').val(currTZ.name());
+				$('#timezone-image').timezonePicker({
+			        target: '#edit-date-default-timezone',
+			        countryTarget: '#edit-site-default-country'
+			    });
 			});
 		}
 	});
@@ -57,13 +72,11 @@ jQuery(function($){
 	 * Save toggle main menu at current page
 	 */
 	$(document).ready(function() {
-		if ( window.location.pathname != '/' ){
-			if($('.help-popup').length){
-				var helpID=$('.help-popup').attr('href').substring(1);
-				var menuID='menu_'+helpID;
-			    $('#'+menuID).addClass('current-item');
-			    $('#'+menuID).parents('.sub-menu').addClass('show');
-			}
+		if($('.help-popup').length){
+			var helpID=$('.help-popup').attr('href').substring(1);
+			var menuID='menu_'+helpID;
+		    $('#'+menuID).addClass('current-item');
+		    $('#'+menuID).parents('.sub-menu').addClass('show');
 		}
 	});
 	
@@ -136,7 +149,7 @@ jQuery(function($){
 	}, 3000);
     
     window.setInterval(function(){
-    	if($('body.network-time').length) get_ajax_data('status','system','time','#sys_time')
+    	if($('body.network-time').length) get_ajax_data('status','system','time','#sys_time');
     	if($('body.network-time').length) $('#user_time').text(Date());
     }, 1000);
     
@@ -352,7 +365,7 @@ jQuery(function($){
 			url: ajaxUrl,
 			type: 'POST',
 			data: {
-				action: 'synchronize_time',
+				action: 'network_time',
 				sync: currTZ.name()
 			},
 			success: function(response){
@@ -371,7 +384,38 @@ jQuery(function($){
 				console.log(xhr + "\n" + err);
 			}
 		});
-		//$('#edit-date-default-timezone').val(currTZ.name());
-		//setTimeout("window.location.reload()",1000);
+		$('#edit-date-default-timezone').val(currTZ.name());
+		$('#timezone-image').timezonePicker({
+	        target: '#edit-date-default-timezone',
+	        countryTarget: '#edit-site-default-country'
+	    });
+	});
+	
+	$(document).on('click', '.network-time button[name="saveResults"]', function(e){
+		var form=$(this).closest('form');
+		$('.overlay').show();
+		$('body').css('cursor','wait');
+		$('.overlay .content').text('Applying settings...');
+		var data=form.serialize()+'&action=network_time';
+		$.ajax({
+			url: ajaxUrl,
+			type: 'POST',
+			data: data,
+			success: function(response){
+				if(response!=""){
+					setTimeout(function() {
+						$('.overlay').hide();
+						$('body').css('cursor','default');
+						var json=$.parseJSON(response);
+						$('#result-msg').text(json.msg);
+					}, 3000);
+				};
+			},
+			error: function(xhr, desc, err) {
+				$('.overlay').hide();
+				$('body').css('cursor','default');
+				console.log(xhr + "\n" + err);
+			}
+		});
 	});
 })

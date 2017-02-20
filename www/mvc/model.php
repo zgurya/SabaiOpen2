@@ -9,7 +9,7 @@ class Model {
 		require_once ROOT.'/models/logs.php';
 		require_once ROOT.'/models/console.php';
 		require_once ROOT.'/models/wan.php';
-		require_once ROOT.'/models/synchronize_time.php';
+		require_once ROOT.'/models/network_time.php';
 	}
 }
 ?>
