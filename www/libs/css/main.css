@@ -941,7 +941,40 @@ body.login .form-submit input{
 .network-time #main #ntpTable tr:nth-of-type(2n+1) {
     background-color: rgb(249, 249, 249);
 }
-
+.network-time #main #ntpTable tr{
+	cursor: pointer;
+}
+.network-time #main #ntpTable tr.clicked{
+	background: #CED7E1;
+}
+.network-time #main .ntp-buttons button{
+	margin-right: 5px;
+}
+.network-time #main .ntp-buttons .none-active{
+	opacity: 0.6;
+    cursor: default;
+}
+.network-time #main .ntp-buttons .none-active:hover{
+	border: 1px solid #ccc;
+    color: #333;
+    background-color: #fff;
+}
+.network-time #add-ntp.help-popup-block .mfp-close, #edit-ntp.help-popup-block .mfp-close{
+	display: none;
+}
+.network-time .mfp-content .ntp-popup .text-box{
+	padding: 40px;
+}
+.network-time .mfp-content .ntp-popup .text-box input{
+	padding: 3px;
+    width: 100%;
+}
+.network-time .mfp-content .ntp-popup{
+	font-size: 16px;
+}
+.network-time .mfp-content .ntp-popup .help-popup-footer button{
+	margin-right: 10px;
+}
 
 /*--------------------------------------------------------------
 8 - Footer

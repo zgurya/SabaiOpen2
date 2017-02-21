@@ -3,11 +3,18 @@
 		<div class="col-lg-12">
 			<h2>NTP</h2>
 			<div class="controlBoxContent">
-				<table id='ntpTable' class='listTable'>
-					<tr>
-						<th>NTP Server</th>
-					</tr>
-				</table>
+				<div class="row ntp-buttons">
+					<button type="button" name="add-ntp" class="add-btn">Add</button>
+					<button type="button" name="edit-ntp" class="none-active">Edit</button>
+					<button type="button" name="delete-ntp" class="none-active">Delete</button>
+				</div>
+				<div class="row">
+					<table id='ntpTable' class='listTable'>
+						<tr>
+							<th>NTP Server</th>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -60,3 +67,23 @@
 		</div>
 	</div>
 </form>
+<div id="add-ntp" class="help-popup-block zoom-anim-dialog mfp-hide ntp-popup">
+	<div class="help-popup-text">
+		<div class="text-box">
+			<input type="text" name="add-ntp" value="">
+		</div>
+	</div>
+	<div class="help-popup-footer">
+		<button type="button" class="mfp-save-footer">Save</button><button type="button" class="mfp-close-footer">Close</button>
+	</div>
+</div>
+<div id="edit-ntp" class="help-popup-block zoom-anim-dialog mfp-hide ntp-popup">
+	<div class="help-popup-text">
+		<div class="text-box">
+			<input type="text" name="edit-ntp" value="">
+		</div>
+	</div>
+	<div class="help-popup-footer">
+		<button type="button" class="mfp-save-footer">Save</button><button type="button" class="mfp-close-footer">Close</button>
+	</div>
+</div>
