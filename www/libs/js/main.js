@@ -1,48 +1,19 @@
+var ajaxUrl=location.protocol+'//'+document.domain+':'+location.port+'/mvc/ajax.php';
+new Date();
+
 jQuery(function($){
-	var ajaxUrl=location.protocol+'//'+document.domain+':'+location.port+'/mvc/ajax.php';
-	new Date();
-	
+
 	/*
 	 * Document.Ready - init action
 	 */
 	$(document).ready(function() {
-		/* Network.Time - Current Computer Time and Timezone */
-		if($('body.network-time').length) $('#user_time').text(Date());
-		
 		/* Diagnostic.Route - Add click trigger at  page */
 		if ($('body.diagnostics-route').length) $('.controlBoxContent button[name="getResults"]').trigger( "click" );
 		
-		/* Network.Time - NTP */		
-		$.getJSON( location.protocol+'//'+document.domain+':'+location.port+'/libs/data/network.time.json', function( data ) {
-			$.each( data.aaData, function( key, val ) {
-				$('#ntpTable').append('<tr class="dataRow"><td data-ntp="'+val.ntp_server+'">'+val.ntp_server+'</td></tr>');
-				$('.network-time #main .ntp-buttons').append('<input type="hidden" name="ntp_server[]" value="'+val.ntp_server+'">');
-				//console.log(val);
-			});
-		});
-		
-		/* Network.Time - TimeZone Picker image */
-		if ($('#timezone-image').length){
-			$('#timezone-image').timezonePicker({
-		        target: '#edit-date-default-timezone',
-		        countryTarget: '#edit-site-default-country'
-		    });
-			$('#edit-date-default-timezone').val($('#edit-date-default-timezone').data('default'));
-
-			// Optionally an auto-detect button to trigger JavaScript geolocation.
-			$('#timezone-detect').click(function() {
-				var currTZ = jstz.determine();
-				$('#edit-date-default-timezone').val(currTZ.name());
-				$('#timezone-image').timezonePicker({
-			        target: '#edit-date-default-timezone',
-			        countryTarget: '#edit-site-default-country'
-			    });
-			});
-		}
-		
 		formmodified=0;
 	    $('form *').change(function(){
-	    	if($(this).attr('id')!='edit-date-default-timezone'){
+	    	var form=$(this).closest('form');
+	    	if($(this).attr('id')!='edit-date-default-timezone' && form.attr('id')!='auth'){
 	    		formmodified=1;
 	    	}
 	    });
@@ -119,6 +90,9 @@ jQuery(function($){
 		$.magnificPopup.close();
 	});
 	
+	/*
+	 * Sort table
+	 */
 	var table = $('.sortTable');
     
     table.find('th')
@@ -189,26 +163,8 @@ jQuery(function($){
     	if($('body.network-time').length) $('#user_time').text(Date());
     }, 1000);
     
-    function get_ajax_data(action,type,param,dest){
-    	$.ajax({
-			url: ajaxUrl,
-			type: 'POST',
-			data: {
-				action: action,
-				type: type,
-				param: param
-			},
-			success: function(response){
-				$(dest).text(response);
-			},
-			error: function(xhr, desc, err) {
-				console.log(xhr + "\n" + err);
-			}
-		});
-    }
-    
 	/*
-	 * Listen button click and call ajax function
+	 * Listen button click and call ajax function. Diagnostics
 	 */
 	$(document).on('click', '.controlBoxContent button[name="getResults"]', function(e){
 		e.preventDefault(e);
@@ -313,74 +269,6 @@ jQuery(function($){
 		}
 	});
 	
-	/*
-	 * Network WAN. Tabs
-	 */
-	$(document).on('click', '.network-wan .tabs span', function(e){
-		e.preventDefault(e);
-		var clickedTab=$(this);
-		var clickedID=clickedTab.attr('id');
-		$('form input[name="wan_proto"]').val(clickedID);
-		clickedTab.parent().find('span').removeClass('selected');
-		clickedTab.addClass('selected');
-		clickedTab.parents('.controlBoxContent').find('.wan-proto').each(function(){
-			if($(this).hasClass(clickedID)){
-				$(this).removeClass('hidden');
-			}else{
-				$(this).addClass('hidden');
-			}
-		});
-	});
-	
-	/*
-	 * Network WAN. Clear
-	 */
-	$(document).on('click', '.network-wan .clear-field', function(e){
-		$(this).prev().find('input').val('');
-	});
-	
-	/*
-	 * Network WAN. Save
-	 */
-	$(document).on('click', '.network-wan button[name="saveResults"]', function(e){
-		var form=$(this).closest('form');
-		var validForm=true;
-		form.find('input').each(function(){
-			if(!$(this)[0].checkValidity()){
-				$(this).parent().addClass('error');
-				validForm=false;
-			}
-		});
-		if(validForm){
-			$('.overlay').show();
-			$('body').css('cursor','wait');
-			$('.overlay .content').text('Applying settings...');
-			var data=form.serialize()+'&action=wan';
-			$.ajax({
-				url: ajaxUrl,
-				type: 'POST',
-				data: data,
-				success: function(response){
-					$('.overlay').hide();
-					$('body').css('cursor','default');
-					var json=$.parseJSON(response);
-					$('.row.result-msg').show();
-					$('.row.result-msg .col-lg-12').text(json.msg);
-				},
-				error: function(xhr, desc, err) {
-					$('.overlay').hide();
-					$('body').css('cursor','default');
-					console.log(xhr + "\n" + err);
-				}
-			});
-		}
-	});
-	
-	$(document).on('focus click', '.network-wan form input', function(e){
-		if($(this).parent().hasClass('error')){
-			$(this).parent().removeClass('error');
-		}
-	});
 	
 	/*
 	 * Cancel button
@@ -388,148 +276,29 @@ jQuery(function($){
 	$(document).on('click', 'button[name="cancel"]', function(e){
 		window.location.href = location.protocol+'//'+document.domain+':'+location.port;
 	});
-	
-	/*
-	 * Network.Time - Synchronize
-	 */
-	$(document).on('click', '.network-time button[name="synchronize"]', function(e){
-		$('.overlay').show();
-		$('body').css('cursor','wait');
-		$('.overlay .content').text('Synchronization in process...');
-		var currTZ = jstz.determine();
-		$.ajax({
+
+})
+
+function get_ajax_data(action,type,param,dest){
+	jQuery.ajax({
 			url: ajaxUrl,
 			type: 'POST',
 			data: {
-				action: 'network_time',
-				sync: currTZ.name()
+				action: action,
+				type: type,
+				param: param
 			},
 			success: function(response){
-				if(response!=""){
-					setTimeout(function() {
-						$('.overlay').hide();
-						$('body').css('cursor','default');
-						var json=$.parseJSON(response);
-						$('#synchronize-result').text(json.msg);
-					}, 3000);
-				};
+				jQuery(dest).text(response);
 			},
 			error: function(xhr, desc, err) {
-				$('.overlay').hide();
-				$('body').css('cursor','default');
 				console.log(xhr + "\n" + err);
 			}
 		});
-		$('#edit-date-default-timezone').val(currTZ.name());
-		$('#timezone-image').timezonePicker({
-	        target: '#edit-date-default-timezone',
-	        countryTarget: '#edit-site-default-country'
-	    });
-	});
-	
-	/*
-	 * Network.Time save changes
-	 */
-	$(document).on('click', '.network-time button[name="saveResults"]', function(e){
-		var form=$(this).closest('form');
-		$('.overlay').show();
-		$('body').css('cursor','wait');
-		$('.overlay .content').text('Applying settings...');
-		var data=form.serialize()+'&action=network_time';
-		$.ajax({
-			url: ajaxUrl,
-			type: 'POST',
-			data: data,
-			success: function(response){
-				if(response!=""){
-					setTimeout(function() {
-						$('.overlay').hide();
-						$('body').css('cursor','default');
-						var json=$.parseJSON(response);
-						$('#result-msg').text(json.msg);
-					}, 3000);
-				};
-			},
-			error: function(xhr, desc, err) {
-				$('.overlay').hide();
-				$('body').css('cursor','default');
-				console.log(xhr + "\n" + err);
-			}
-		});
-	});
-	
-	/*
-	 * Network.Time select NTP server row
-	 */
-	$(document).on('click', '.network-time #main #ntpTable tr.dataRow', function(e){
-		var selectNTP=$(this).find('td').data('ntp');
-		$(this).parent().find('tr.clicked').removeClass('clicked');
-		$('.network-time #main .ntp-buttons').find('input.clicked').removeClass('clicked');
-		$(this).addClass('clicked');
-		$('.network-time #main .ntp-buttons input').each(function(){
-			if($(this).val()==selectNTP){
-				$(this).addClass('clicked');
-			}
-		});
-		$(this).parents('.controlBoxContent').find('.none-active').removeClass('none-active');
-	});
-	
-	/*
-	 * Magnific Popup Network.Time init
-	 */
-	$(document).on('click', '.network-time #main .ntp-buttons button', function(e){
-		if(!$(this).hasClass('none-active')){
-			if($(this).attr('name')=='delete-ntp'){
-				e.preventDefault();
-		        if (window.confirm("Are you sure?")) {
-		            //location.href = window.location.href;
-		        	var selectNTP=$('.network-time #main #ntpTable tr.clicked').find('td').data('ntp');
-		        	$('.network-time #main #ntpTable tr.clicked').remove();
-		        	$('.network-time #main .ntp-buttons input').each(function(){
-		        		if($(this).val()==selectNTP){
-		        			$(this).remove();
-		        		}
-		        	});
-		        	$(this).parents('.controlBoxContent').find('button[name="edit-ntp"]').addClass('none-active');
-		        	$(this).parents('.controlBoxContent').find('button[name="delete-ntp"]').addClass('none-active');
-		        }
-			}else{
-				openPopup($(this).attr('name'));
-				if($(this).attr('name')=='edit-ntp'){
-					$('#edit-ntp input[name="edit-ntp"]').val($('.network-time #main #ntpTable tr.clicked').find('td').data('ntp'));
-				}
-			}
-		}
-	});
-	
-	/*
-	 * Magnific Popup Network.Time save data
-	 */
-	$(document).on( 'click', '.ntp-popup .mfp-save-footer', function() {
-		if($(this).parents('.help-popup-block').attr('id')=='add-ntp'){
-			$('#ntpTable').append('<tr class="dataRow"><td data-ntp="'+$(this).parents('.help-popup-block').find('input[name="add-ntp"]').val()+'">'+$(this).parents('.help-popup-block').find('input[name="add-ntp"]').val()+'</td></tr>');
-			$('.network-time #main .ntp-buttons').append('<input type="hidden" name="ntp_server[]" value="'+$(this).parents('.help-popup-block').find('input[name="add-ntp"]').val()+'">');
-		}else{
-			$('.network-time #main #ntpTable tr.clicked').find('td').text($(this).parents('.help-popup-block').find('input[name="edit-ntp"]').val());
-			$('.network-time #main .ntp-buttons').find('input.clicked').val($(this).parents('.help-popup-block').find('input[name="edit-ntp"]').val());
-		}
-		$.magnificPopup.close();
-	});
-	
-	/*
-	 * Magnific Popup Security.Port Forwarding
-	 */
-	$(document).on('click', '.security-portforwarding #main .port-fw-buttons button', function(e){
-		if(!$(this).hasClass('none-active')){
-			if($(this).attr('name')=='add-port-fw'){
-				openPopup($(this).attr('name'));
-			}
-		}
-	});
-	
-	
-	function openPopup(el) {
-		$.magnificPopup.open({
+    }
+
+function openPopup(el) {
+		jQuery.magnificPopup.open({
 			items: {
 				src: '#'+el,
 			},
@@ -544,4 +313,3 @@ jQuery(function($){
 			mainClass: 'my-mfp-zoom-in'
 		});
 	}
-})

@@ -51,15 +51,15 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-6"><label for="protocol">Protocol:</label></div>
-					<div class="col-lg-6"><select id="protocol" name="protocol"><option value="on">on</option><option value="off">off</option></select></div>
+					<div class="col-lg-6"><select id="protocol" name="protocol"><option value="udp">UDP</option><option value="tcp">TCP</option><option value="both">Both</option></select></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6"><label for="gateway">Gateway:</label></div>
-					<div class="col-lg-6"><select id="gateway" name="gateway"><option value="on">on</option><option value="off">off</option></select></div>
+					<div class="col-lg-6"><select id="gateway" name="gateway"><option value="lan">LAN</option><option value="wan">WAN</option><option value="pptp">PPTP</option><option value="ovpn">OVPN</option></select></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6"><label for="source-address">Source Address:</label></div>
-					<div class="col-lg-6"><input type="text" id="source-address" name="source-address"></div>
+					<div class="col-lg-6"><input type="text" id="source-address" name="source-address" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6"><label for="source-port">Source Port:</label></div>
@@ -71,7 +71,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-6"><label for="destination-address">Destination Address:</label></div>
-					<div class="col-lg-6"><input type="text" id="destination-address" name="destination-address"></div>
+					<div class="col-lg-6"><input type="text" id="destination-address" name="destination-address" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6"><label for="description">Description:</label></div>

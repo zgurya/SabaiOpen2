@@ -18,6 +18,8 @@
 	<script type="text/javascript" src="<?php echo SITE_URL;?>/libs/js/jquery.maphilight.min.js"></script>
 	<script type="text/javascript" src="<?php echo SITE_URL;?>/libs/js/jquery.timezone-picker.min.js"></script>
 	<script type="text/javascript" src="<?php echo SITE_URL;?>/libs/js/main.js"></script>
+	<script type="text/javascript" src="<?php echo SITE_URL;?>/libs/js/pages/<?php echo $this->tmplf;?>.js"></script>
+	
 </head>
 <body class="<?php echo str_replace('.','-',$this->tmplf);?>">
 <div class="overlay"><div class="content"></div></div>
