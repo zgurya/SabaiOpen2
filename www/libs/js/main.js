@@ -411,6 +411,9 @@ jQuery(function($){
 	    });
 	});
 	
+	/*
+	 * Network.Time save changes
+	 */
 	$(document).on('click', '.network-time button[name="saveResults"]', function(e){
 		var form=$(this).closest('form');
 		$('.overlay').show();
@@ -438,6 +441,10 @@ jQuery(function($){
 			}
 		});
 	});
+	
+	/*
+	 * Network.Time select NTP server row
+	 */
 	$(document).on('click', '.network-time #main #ntpTable tr.dataRow', function(e){
 		var selectNTP=$(this).find('td').data('ntp');
 		$(this).parent().find('tr.clicked').removeClass('clicked');
@@ -452,7 +459,7 @@ jQuery(function($){
 	});
 	
 	/*
-	 * Magnific NTP Popup init
+	 * Magnific Popup Network.Time init
 	 */
 	$(document).on('click', '.network-time #main .ntp-buttons button', function(e){
 		if(!$(this).hasClass('none-active')){
@@ -479,7 +486,10 @@ jQuery(function($){
 		}
 	});
 	
-	$(document).on( 'click', '.mfp-save-footer', function() {
+	/*
+	 * Magnific Popup Network.Time save data
+	 */
+	$(document).on( 'click', '.ntp-popup .mfp-save-footer', function() {
 		if($(this).parents('.help-popup-block').attr('id')=='add-ntp'){
 			$('#ntpTable').append('<tr class="dataRow"><td data-ntp="'+$(this).parents('.help-popup-block').find('input[name="add-ntp"]').val()+'">'+$(this).parents('.help-popup-block').find('input[name="add-ntp"]').val()+'</td></tr>');
 			$('.network-time #main .ntp-buttons').append('<input type="hidden" name="ntp_server[]" value="'+$(this).parents('.help-popup-block').find('input[name="add-ntp"]').val()+'">');
@@ -489,6 +499,18 @@ jQuery(function($){
 		}
 		$.magnificPopup.close();
 	});
+	
+	/*
+	 * Magnific Popup Security.Port Forwarding
+	 */
+	$(document).on('click', '.security-portforwarding #main .port-fw-buttons button', function(e){
+		if(!$(this).hasClass('none-active')){
+			if($(this).attr('name')=='add-port-fw'){
+				openPopup($(this).attr('name'));
+			}
+		}
+	});
+	
 	
 	function openPopup(el) {
 		$.magnificPopup.open({
