@@ -146,6 +146,7 @@ jQuery(function($){
 		        	$(this).parents('.controlBoxContent').find('button[name="delete-ntp"]').addClass('none-active');
 		        }
 			}else{
+				$('.help-popup-block.ntp-popup').find('input').parent().removeClass('error');
 				openPopup($(this).attr('name'));
 				if($(this).attr('name')=='edit-ntp'){
 					$('#edit-ntp input[name="edit-ntp"]').val($('.network-time #main #ntpTable tr.clicked').find('td').data('ntp'));
@@ -158,13 +159,24 @@ jQuery(function($){
 	 * Magnific Popup Network.Time save data
 	 */
 	$(document).on( 'click', '.ntp-popup .mfp-save-footer', function() {
-		if($(this).parents('.help-popup-block').attr('id')=='add-ntp'){
-			$('#ntpTable').append('<tr class="dataRow"><td data-ntp="'+$(this).parents('.help-popup-block').find('input[name="add-ntp"]').val()+'">'+$(this).parents('.help-popup-block').find('input[name="add-ntp"]').val()+'</td></tr>');
-			$('.network-time #main .ntp-buttons').append('<input type="hidden" name="ntp_server[]" value="'+$(this).parents('.help-popup-block').find('input[name="add-ntp"]').val()+'">');
-		}else{
-			$('.network-time #main #ntpTable tr.clicked').find('td').text($(this).parents('.help-popup-block').find('input[name="edit-ntp"]').val());
-			$('.network-time #main .ntp-buttons').find('input.clicked').val($(this).parents('.help-popup-block').find('input[name="edit-ntp"]').val());
+		var form=$(this).closest('.ntp-popup');
+		var validForm=true;
+		form.find('input').each(function(){
+			if(!$(this)[0].checkValidity()){
+				$(this).parent().addClass('error');
+				validForm=false;
+			}
+		});
+		if(validForm){
+			if($(this).parents('.help-popup-block').attr('id')=='add-ntp'){
+				$('#ntpTable').append('<tr class="dataRow"><td data-ntp="'+$(this).parents('.help-popup-block').find('input[name="add-ntp"]').val()+'">'+$(this).parents('.help-popup-block').find('input[name="add-ntp"]').val()+'</td></tr>');
+				$('.network-time #main .ntp-buttons').append('<input type="hidden" name="ntp_server[]" value="'+$(this).parents('.help-popup-block').find('input[name="add-ntp"]').val()+'">');
+			}else{
+				$('.network-time #main #ntpTable tr.clicked').find('td').text($(this).parents('.help-popup-block').find('input[name="edit-ntp"]').val());
+				$('.network-time #main .ntp-buttons').find('input.clicked').val($(this).parents('.help-popup-block').find('input[name="edit-ntp"]').val());
+			}
+			formmodified=1;
+			$.magnificPopup.close();
 		}
-		$.magnificPopup.close();
 	});
 })

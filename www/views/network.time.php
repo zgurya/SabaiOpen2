@@ -62,15 +62,16 @@
 		<div class="col-lg-12 col-md-12 col-sm-12"></div>
 	</div>
 	<div class="row">
-		<div class="col-lg-12">	
+		<div class="col-lg-12">
 			<button type="button" value="save" class="save-form-btn" name="saveResults">Save</button><button type="button" name="cancel">Cancel</button>
 		</div>
 	</div>
 </form>
 <div id="add-ntp" class="help-popup-block zoom-anim-dialog mfp-hide ntp-popup">
+	<div class="help-popup-title">Add record</div>
 	<div class="help-popup-text">
 		<div class="text-box">
-			<input type="text" name="add-ntp" value="">
+			<span class="col-lg-12 col-md-12 col-sm-12 from-field" data-tip="Enter data"><input type="text" name="add-ntp" value="" required></span>
 		</div>
 	</div>
 	<div class="help-popup-footer">
@@ -78,9 +79,10 @@
 	</div>
 </div>
 <div id="edit-ntp" class="help-popup-block zoom-anim-dialog mfp-hide ntp-popup">
+	<div class="help-popup-title">Edit record</div>
 	<div class="help-popup-text">
 		<div class="text-box">
-			<input type="text" name="edit-ntp" value="">
+			<span class="col-lg-12 col-md-12 col-sm-12 from-field" data-tip="Enter data"><input type="text" name="edit-ntp" value="" required></span>
 		</div>
 	</div>
 	<div class="help-popup-footer">

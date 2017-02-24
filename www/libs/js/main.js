@@ -8,19 +8,13 @@ jQuery(function($){
 	 */
 	$(document).ready(function() {
 		formmodified=0;
-	    $('form *').change(function(){
-	    	var form=$(this).closest('form');
-	    	if($(this).attr('id')!='edit-date-default-timezone' && form.attr('id')!='auth'){
-	    		formmodified=1;
-	    	}
-	    });
 	    window.onbeforeunload = confirmExit;
 	    function confirmExit() {
 	        if (formmodified == 1) {
 	            return "New information not saved. Do you wish to leave the page?";
 	        }
 	    }
-	    $('input[name="saveResults"].save-form-btn').click(function() {
+	    $('button[name="saveResults"].save-form-btn').click(function() {
 	        formmodified = 0;
 	    });
 	});

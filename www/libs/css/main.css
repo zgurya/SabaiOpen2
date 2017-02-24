@@ -798,22 +798,22 @@ body.login .form-submit input{
     background-color: #e6e6e6;
     border-color: #adadad;
 }
-#main .from-field{
+.from-field{
 	position: relative;
 }
-#main .from-field input, .from-field textarea{
+.from-field input, .from-field textarea{
 	width: 100%;	
 }
-#main .from-field.margin input, .from-field.margin textarea{
+.from-field.margin input, .from-field.margin textarea{
 	margin-bottom: 15px;
 }
-#main .from-field.margin:before{
+.from-field.margin:before{
 	bottom: 50px;
 }
-#main .from-field.margin:after{
+.from-field.margin:after{
 	bottom:55px;
 }
-#main .from-field:before{
+.from-field:before{
 	content:'';
 	/* hides the tooltip when not hovered */
 	display:none;
@@ -831,7 +831,7 @@ body.login .form-submit input{
 	width:0;
 	height:0;
 }
-#main .from-field:after {
+.from-field:after {
 	display:none;
 	content:attr(data-tip);
 	position:absolute;
@@ -850,8 +850,8 @@ body.login .form-submit input{
 	white-space:nowrap;
 	word-wrap:normal;
 }
-#main .from-field.error:before,
-#main .from-field.error:after {
+.from-field.error:before,
+.from-field.error:after {
 	display:block;
 }
 #main .save-form-btn{
@@ -1053,7 +1053,8 @@ body.login .form-submit input{
 	display: none;
 }
 .network-time .mfp-content .ntp-popup .text-box{
-	padding: 40px;
+	padding-top: 20px;
+    padding-bottom: 45px;
 }
 .network-time .mfp-content .ntp-popup .text-box input{
 	padding: 3px;
