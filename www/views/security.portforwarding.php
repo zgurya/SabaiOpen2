@@ -59,7 +59,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-6"><label for="source-address">Source Address:</label></div>
-					<div class="col-lg-6"><input type="text" id="source-address" name="source-address" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"></div>
+					<div class="col-lg-6"><input type="text" id="source-address" name="source-address""></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6"><label for="source-port">Source Port:</label></div>
@@ -71,7 +71,7 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-6"><label for="destination-address">Destination Address:</label></div>
-					<div class="col-lg-6"><input type="text" id="destination-address" name="destination-address" required pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"></div>
+					<div class="col-lg-6"><input type="text" id="destination-address" name="destination-address"></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-6"><label for="description">Description:</label></div>
