@@ -7,9 +7,6 @@ jQuery(function($){
 	 * Document.Ready - init action
 	 */
 	$(document).ready(function() {
-		/* Diagnostic.Route - Add click trigger at  page */
-		if ($('body.diagnostics-route').length) $('.controlBoxContent button[name="getResults"]').trigger( "click" );
-		
 		formmodified=0;
 	    $('form *').change(function(){
 	    	var form=$(this).closest('form');
@@ -29,23 +26,10 @@ jQuery(function($){
 	});
 	
 	/*
-	 * Login form
+	 * Cancel button
 	 */
-	$(document).on('click', 'body.login form input[type="submit"]', function(e){
-		e.preventDefault(e);
-		$('body.login form .error-msg').hide();
-		var formValid=true;
-		$('body.login form input').each(function(){
-			if($(this).val().length===0){
-				formValid=false;
-				$(this).attr("placeholder", "Please fill this field");
-			}
-		});
-		if(formValid==true) $('body.login form').submit();
-	});
-	
-	$('body.login form input').focus(function() {
-		$(this).attr("placeholder", "");
+	$(document).on('click', 'button[name="cancel"]', function(e){
+		window.location.href = location.protocol+'//'+document.domain+':'+location.port;
 	});
 	
 	/*
@@ -155,13 +139,9 @@ jQuery(function($){
     	get_ajax_data('status','system','remote_ip','#top-panel #locstats #locquery');
     	get_ajax_data('status','system','remote_city','#top-panel #loccity #locquery');
     	get_ajax_data('status','system','remote_country','#top-panel #loccountry #locquery');
-    	if($('body.administration-status').length) get_ajax_data('status','system','time','#sys_time');
 	}, 3000);
     
-    window.setInterval(function(){
-    	if($('body.network-time').length) get_ajax_data('status','system','time','#sys_time');
-    	if($('body.network-time').length) $('#user_time').text(Date());
-    }, 1000);
+    
     
 	/*
 	 * Listen button click and call ajax function. Diagnostics
@@ -244,37 +224,6 @@ jQuery(function($){
 				console.log(xhr + "\n" + err);
 			}
 		});
-	});
-	
-	/*
-	 * Listen change select option at Diagnostic Logs page
-	 */
-	$(document).on('change', '.controlBoxContent select[name="act"]', function(e){
-		$('.controlBoxContent #detailSuffix').hide();
-		$('.controlBoxContent #detail').show().val('');
-		switch($('.controlBoxContent select[name="act"]').val()){
-			case 'all':
-			case 'download':
-				$('.controlBoxContent #detail').hide();
-			break;
-			case 'head':
-			case 'tail':
-				$('.controlBoxContent #detail').show().val('25');
-				$('.controlBoxContent #detailSuffix').html(' lines');
-				$('.controlBoxContent #detailSuffix').show();
-			break;
-			case 'grep':
-				$('.controlBoxContent #detail').show().val('');
-				break;
-		}
-	});
-	
-	
-	/*
-	 * Cancel button
-	 */
-	$(document).on('click', 'button[name="cancel"]', function(e){
-		window.location.href = location.protocol+'//'+document.domain+':'+location.port;
 	});
 
 })
