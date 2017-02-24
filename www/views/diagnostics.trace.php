@@ -22,15 +22,15 @@
 		</div>
 		<div id='results' class='controlBoxContent hidden'>
 			<div id='statistics' class='smallText'></div>
-			<table id='resultTable' class='listTable hidden'>
+			<table id='resultTable' class='listTable sortTable hidden'>
 				<tr>
-					<th>Hop</th>
-					<th>Address</th>
-					<th>Time (ms)</th>
-					<th>Address 2</th>
-					<th>Time (ms)</th>
-					<th>Address 3</th>
-					<th>Time (ms)</th>
+					<th class="icon-sort-default">Hop</th>
+					<th class="icon-sort-default">Address</th>
+					<th class="icon-sort-default">Time (ms)</th>
+					<th class="icon-sort-default">Address 2</th>
+					<th class="icon-sort-default">Time (ms)</th>
+					<th class="icon-sort-default">Address 3</th>
+					<th class="icon-sort-default">Time (ms)</th>
 				</tr>
 			</table>
 		</div>

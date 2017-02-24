@@ -103,39 +103,58 @@ jQuery(function($){
 		$.magnificPopup.close();
 	});
 	
-	var table = $('#resultTable');
+	var table = $('.sortTable');
     
     table.find('th')
         .wrapInner('<span title="sort this column"/>')
         .each(function(){
-            
             var th = $(this),
                 thIndex = th.index(),
                 inverse = false;
-            
             th.click(function(){
-                
+            	
+            	$(this).parents('#resultTable').find('th').not($(this)).each(function(){
+            		$(this).removeClass('icon-sort-up');
+                	$(this).removeClass('icon-sort-down');
+            	});
+            	if($(this).hasClass('icon-sort-up')){
+            		if($(this).hasClass('up')){
+            			$(this).removeClass('up');
+                		$(this).addClass('down');
+            		}
+            		$(this).removeClass('icon-sort-up');
+            		$(this).addClass('icon-sort-down');
+            	}else{
+            		if($(this).hasClass('icon-sort-down')){
+            			if($(this).hasClass('down')){
+                			$(this).removeClass('down');
+                    		$(this).addClass('up');
+                		}
+                		$(this).removeClass('icon-sort-down');
+                		$(this).addClass('icon-sort-up');
+                	}else{
+                		if($(this).hasClass('up')){
+                			$(this).addClass('icon-sort-down');
+                		}else{
+                			$(this).addClass('up');
+                    		$(this).addClass('icon-sort-up');
+                		}
+                	}
+            	}
+            	
+            	
                 table.find('td').filter(function(){
-                    
                     return $(this).index() === thIndex;
-                    
                 }).sortElements(function(a, b){
-                    
                     return $.text([a]) > $.text([b]) ?
                         inverse ? -1 : 1
                         : inverse ? 1 : -1;
-                    
                 }, function(){
-                    
                     // parentNode is the element we want to move
                     return this.parentNode; 
-                    
                 });
-                
                 inverse = !inverse;
-                    
-            });
-                
+            });  
         });
 	
     

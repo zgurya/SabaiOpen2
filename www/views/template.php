@@ -66,7 +66,7 @@
 						<a href="#" class="parent-menu">Security</a>
 						<ul id="submenu_security" class="sub-menu">
 							<li><a id="menu_security-firewall" href="<?php echo SITE_URL;?>?url=/security/firewall/">Firewall</a></li>
-							<li><a id="menu_security-portforwarding" href="<?php echo SITE_URL;?>/security/portforwarding/">Port Forwarding</a></li>
+							<li><a id="menu_security-portforwarding" href="<?php echo SITE_URL;?>?url=/security/portforwarding/">Port Forwarding</a></li>
 							<li><a id="menu_security-dmz" href="<?php echo SITE_URL;?>?url=/security/dmz/">DMZ</a></li>
 							<li><a id="menu_security-upnp" href="<?php echo SITE_URL;?>?url=/security/upnp/">UPnP</a></li>
 						</ul>
@@ -84,7 +84,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-lg-10">
+			<div class="col-lg-10" id="content">
 				<div id="top-panel" class="row">
 					<div class="col-lg-7">
 						<a href="<?php echo '#'.str_replace('.', '-', $this->tmplf);?>" class="help-popup">

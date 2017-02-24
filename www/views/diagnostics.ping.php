@@ -22,12 +22,12 @@
 		</div>
 		<div id='results' class='controlBoxContent hidden'>
 			<div id='statistics' class='smallText'></div>
-			<table id='resultTable' class='listTable hidden'>
+			<table id='resultTable' class='listTable sortTable hidden'>
 				<tr>
-					<th>Count</th>
-					<th>Bytes</th>
-					<th>TTL</th>
-					<th>Time</th>
+					<th class="icon-sort-default">Count</th>
+					<th class="icon-sort-default">Bytes</th>
+					<th class="icon-sort-default">TTL</th>
+					<th class="icon-sort-default">Time</th>
 				</tr>
 			</table>
 		</div>
