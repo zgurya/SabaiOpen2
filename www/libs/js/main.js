@@ -39,6 +39,22 @@ jQuery(function($){
 			    });
 			});
 		}
+		
+		formmodified=0;
+	    $('form *').change(function(){
+	    	if($(this).attr('id')!='edit-date-default-timezone'){
+	    		formmodified=1;
+	    	}
+	    });
+	    window.onbeforeunload = confirmExit;
+	    function confirmExit() {
+	        if (formmodified == 1) {
+	            return "New information not saved. Do you wish to leave the page?";
+	        }
+	    }
+	    $('input[name="saveResults"].save-form-btn').click(function() {
+	        formmodified = 0;
+	    });
 	});
 	
 	/*
