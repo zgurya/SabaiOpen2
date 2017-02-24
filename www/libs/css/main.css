@@ -11,6 +11,7 @@
 	7.1 - Diagnostics. Ping
 	7.2 - Network. Wan
 	7.3 - Network. Time
+	7.4 - Security. Port Forwarding
 8 - Footer
 9 - Help popup
 
@@ -734,14 +735,14 @@ body.login .form-submit input{
 #content{
 	border-left: 1px solid silver;
 }
-#main label {
+#main label, .help-popup-block label{
     display: inline-block;
     max-width: 100%;
     margin: 5px 0;
     margin-bottom: 5px;
     font-weight: 700;
 }
-#main input, #main textarea{
+#main input, #main textarea, .help-popup-block input, .help-popup-block textarea{
 	display: block;
     padding: 6px 12px !important;
     font-size: 14px;
@@ -760,13 +761,13 @@ body.login .form-submit input{
 #main input{
 	height: 34px;
 }
-#main input:focus, #main textarea:focus, #main select:focus{
+#main input:focus, #main textarea:focus, #main select:focus, .help-popup-block input:focus, .help-popup-block textarea:focus, .help-popup-block select:focus{
 	border-color: #66afe9;
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 }
-#main button, #main select{
+#main button, #main select, .help-popup-block button, .help-popup-block select{
 	display: inline-block;
     margin-bottom: 0;
     font-weight: 400;
@@ -789,7 +790,7 @@ body.login .form-submit input{
     line-height: 1.5;
     border-radius: 3px;
 }
-#main select{
+#main select, .help-popup-block select{
 	padding-bottom: 6px;
 	padding-top: 6px;
 }
@@ -1093,6 +1094,42 @@ body.login .form-submit input{
     color: #333;
     background-color: #fff;
 }
+.security-portforwarding .help-popup-block form .label{
+	text-align: right;
+}
+.security-portforwarding .help-popup-block form .field > *{
+	width: 100%;
+}
+.security-portforwarding .help-popup-block form p{
+	display: none;
+}
+.security-portforwarding .help-popup-block form .error p{
+	display: inline-block;
+	color: red;
+	margin-top: 0;
+}
+.security-portforwarding #main #portFWTable{
+	width: 100%;
+}
+.security-portforwarding #main #portFWTable th{
+	border-bottom: 2px solid rgb(221, 221, 221);
+	text-align: left;
+	padding: 8px;
+	font-size: 12px;
+}
+.security-portforwarding #main #portFWTable td{
+	border-top: 1px solid rgb(221, 221, 221);
+	padding: 8px;
+}
+.security-portforwarding #main #portFWTable tr:nth-of-type(2n+1) {
+    background-color: rgb(249, 249, 249);
+}
+.security-portforwarding #main #portFWTable tr{
+	cursor: pointer;
+}
+.security-portforwarding #main #portFWTable tr.clicked{
+	background: #CED7E1;
+}
 
 /*--------------------------------------------------------------
 8 - Footer
@@ -1131,6 +1168,11 @@ body.login .form-submit input{
 }
 .help-popup-block .help-popup-footer{
 	text-align: right;
+}
+.mfp-close-btn-in .mfp-close {
+    color: #333;
+    border: 0;
+    font-size: 24px;
 }
 .my-mfp-zoom-in .zoom-anim-dialog {
 	opacity: 0;

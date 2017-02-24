@@ -4,8 +4,9 @@ jQuery(function($){
 	 */
 	$(document).on('click', '.security-portforwarding #main .port-fw-buttons button', function(e){
 		if(!$(this).hasClass('none-active')){
-			if($(this).attr('name')=='add-port-fw'){
-				openPopup($(this).attr('name'));
+			if($(this).hasClass('add-btn')){
+				$('.help-popup-block').addClass('add-port-fw');
+				openPopup('port-fw-popup');	
 			}
 		}
 	});
@@ -13,8 +14,11 @@ jQuery(function($){
 	/*
 	 * Magnific Popup save data
 	 */
-	$(document).on( 'click', '.port-fw-popup .mfp-save-footer', function() {
+	$(document).on( 'click', '.help-popup-block .mfp-save-footer', function() {
 		var popup=$(this).closest('.help-popup-block');
+		popup.find('.error').each(function(){
+			$(this).removeClass('error');
+		})
 		var validForm=true;
 		popup.find('input').each(function(){
 			if(!$(this)[0].checkValidity()){
@@ -23,8 +27,8 @@ jQuery(function($){
 			}
 		});
 		if(validForm){
-			if(popup.attr('id')=='add-port-fw'){
-				$('#portFWTable').append('<tr></tr>');
+			if(popup.hasClass('add-port-fw')){
+				$('#portFWTable').append('<tr class="dataRow"></tr>');
 				$.each(popup.find('form').serializeArray(),function(key,value){
 					$('#portFWTable tr').last().append('<td>'+value.value+'</td>');
 				});

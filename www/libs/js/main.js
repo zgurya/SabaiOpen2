@@ -81,7 +81,7 @@ jQuery(function($){
                 inverse = false;
             th.click(function(){
             	
-            	$(this).parents('#resultTable').find('th').not($(this)).each(function(){
+            	table.find('th').not($(this)).each(function(){
             		$(this).removeClass('icon-sort-up');
                 	$(this).removeClass('icon-sort-down');
             	});
