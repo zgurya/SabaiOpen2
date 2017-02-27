@@ -20,7 +20,26 @@
 							<th class="icon-sort-default">Destination Address</th>
 							<th class="icon-sort-default">Description</th>
 						</tr>
+						<?php $ports_forwarding=get_portforwarding();?>
+						<?php if(!empty($ports_forwarding)):?>
+							<?php foreach ($ports_forwarding['aaData'] as $port_forwarding):?>
+								<tr class="dataRow">
+									<td><?php echo $port_forwarding['status']?></td>
+									<td><?php echo $port_forwarding['protocol']?></td>
+									<td><?php echo $port_forwarding['gateway']?></td>
+									<td><?php echo $port_forwarding['src']?></td>
+									<td><?php echo $port_forwarding['ext']?></td>
+									<td><?php echo $port_forwarding['int']?></td>
+									<td><?php echo $port_forwarding['address']?></td>
+									<td><?php echo $port_forwarding['description']?></td>
+									
+								</tr>
+							<?php endforeach;?>
+						<?php endif;?>
 					</table>
+				</div>
+				<div class="row result-msg">
+					<div class="col-lg-12 col-md-12 col-sm-12"></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-12">	
@@ -51,11 +70,11 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-5 label"><label for="protocol">Protocol:</label></div>
-					<div class="col-lg-7 field"><select id="protocol" name="protocol"><option value="udp">UDP</option><option value="tcp">TCP</option><option value="both">Both</option></select></div>
+					<div class="col-lg-7 field"><select id="protocol" name="protocol"><option value="UDP">UDP</option><option value="TCP">TCP</option><option value="Both">Both</option></select></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-5 label"><label for="gateway">Gateway:</label></div>
-					<div class="col-lg-7 field"><select id="gateway" name="gateway"><option value="lan">LAN</option><option value="wan">WAN</option><option value="pptp">PPTP</option><option value="ovpn">OVPN</option></select></div>
+					<div class="col-lg-7 field"><select id="gateway" name="gateway"><option value="LAN">LAN</option><option value="WAN">WAN</option><option value="PPTP">PPTP</option><option value="OVPN">OVPN</option></select></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-5 label"><label for="source-address">Source Address:</label></div>
