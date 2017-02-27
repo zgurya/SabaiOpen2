@@ -5,8 +5,8 @@
 			<div class="controlBoxContent">
 				<div class="row port-fw-buttons">
 					<button type="button" name="add-port-fw" class="add-btn">Add</button>
-					<button type="button" name="edit-port-fw" class="add-btn none-active">Edit</button>
-					<button type="button" name="delete-port-fw" class="none-active">Delete</button>
+					<button type="button" name="edit-port-fw" class="edit-btn none-active">Edit</button>
+					<button type="button" name="delete-port-fw" class="delete-btn none-active">Delete</button>
 				</div>
 				<div class="row">
 					<table id='portFWTable' class='listTable sortTable'>
@@ -59,23 +59,23 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-5 label"><label for="source-address">Source Address:</label></div>
-					<div class="col-lg-7 field"><input type="text" id="source-address" name="source-address"" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"><p>*Invalid address - Enter valid ip.</p></div>
+					<div class="col-lg-7 field"><input type="text" id="source-address" name="source-address"" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$" autocomplete="on"><p>*Invalid address - Enter valid ip.</p></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-5 label"><label for="source-port">Source Port:</label></div>
-					<div class="col-lg-7 field"><input type="text" id="source-port" name="source-port" required pattern="^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])|([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]):([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$"><p>*Invalid port - Enter valid port or range.</p></div>
+					<div class="col-lg-7 field"><input type="text" id="source-port" name="source-port" required pattern="^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])|([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]):([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$" autocomplete="on"><p>*Invalid port - Enter valid port or range.</p></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-5 label"><label for="destination-port">Destination Port:</label></div>
-					<div class="col-lg-7 field"><input type="text" id="destination-port" name="destination-port" required pattern="^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])|([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]):([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$"><p>*Invalid port - Enter valid port or range.</p></div>
+					<div class="col-lg-7 field"><input type="text" id="destination-port" name="destination-port" required pattern="^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])|([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]):([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$" autocomplete="on"><p>*Invalid port - Enter valid port or range.</p></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-5 label"><label for="destination-address">Destination Address:</label></div>
-					<div class="col-lg-7 field"><input type="text" id="destination-address" name="destination-address" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$"><p>*Invalid address - Enter valid ip.</p></div>
+					<div class="col-lg-7 field"><input type="text" id="destination-address" name="destination-address" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$" autocomplete="on"><p>*Invalid address - Enter valid ip.</p></div>
 				</div>
 				<div class="row">
 					<div class="col-lg-5 label"><label for="description">Description:</label></div>
-					<div class="col-lg-7 field"><input type="text" id="description" name="description"></div>
+					<div class="col-lg-7 field"><input type="text" id="description" name="description" autocomplete="on"></div>
 				</div>
 			</form>
 		</div>

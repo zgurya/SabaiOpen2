@@ -6,9 +6,42 @@ jQuery(function($){
 		if(!$(this).hasClass('none-active')){
 			if($(this).hasClass('add-btn')){
 				$('.help-popup-block').addClass('add-port-fw');
+				$('.help-popup-block').removeClass('edit-port-fw');
+				clearForm('add-security-portforwarding');
 				openPopup('port-fw-popup');	
 			}
+			if($(this).hasClass('edit-btn')){
+				$('.help-popup-block').addClass('edit-port-fw');
+				$('.help-popup-block').removeClass('add-port-fw');
+				var tdValues = [];
+				$('.security-portforwarding #main #portFWTable tr.dataRow.clicked').each(function(index, tr) {
+				    var lines = $('td', tr).map(function(index, td) {
+				    	tdValues.push($(td).text());
+				    });
+				});
+				$('#port-fw-popup select[name="status"]').val(tdValues[0]);
+				$('#port-fw-popup select[name="protocol"]').val(tdValues[1]);
+				$('#port-fw-popup select[name="gateway"]').val(tdValues[2]);
+				$('#port-fw-popup input[name="source-address"]').val(tdValues[3]);
+				$('#port-fw-popup input[name="source-port"]').val(tdValues[4]);
+				$('#port-fw-popup input[name="destination-port"]').val(tdValues[5]);
+				$('#port-fw-popup input[name="destination-address"]').val(tdValues[6]);
+				$('#port-fw-popup input[name="description"]').val(tdValues[7]);
+				openPopup('port-fw-popup');
+			}
+			if($(this).hasClass('delete-btn')){
+				e.preventDefault();
+		        if (window.confirm("Are you sure?")) {
+		        	$('#portFWTable tr.clicked').remove();
+		        }
+			}
 		}
+	});
+	
+	$(document).on('click', '.security-portforwarding #main #portFWTable tr.dataRow', function(e){
+		$(this).parent().find('tr.clicked').removeClass('clicked');
+		$(this).addClass('clicked');
+		$(this).parents('.controlBoxContent').find('.none-active').removeClass('none-active');
 	});
 	
 	/*
@@ -31,6 +64,12 @@ jQuery(function($){
 				$('#portFWTable').append('<tr class="dataRow"></tr>');
 				$.each(popup.find('form').serializeArray(),function(key,value){
 					$('#portFWTable tr').last().append('<td>'+value.value+'</td>');
+				});
+			}
+			if(popup.hasClass('edit-port-fw')){
+				$('#portFWTable tr.clicked').html('');
+				$.each(popup.find('form').serializeArray(),function(key,value){
+					$('#portFWTable tr.clicked').append('<td>'+value.value+'</td>');
 				});
 			}
 			formmodified=1;
