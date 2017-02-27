@@ -106,6 +106,7 @@ jQuery(function($){
                 		}else{
                 			$(this).addClass('up');
                     		$(this).addClass('icon-sort-up');
+                    		$(this).removeClass('down');
                 		}
                 	}
             	}
@@ -222,37 +223,45 @@ jQuery(function($){
 
 })
 
+
+function clearForm(fName){
+	jQuery('form[name="'+fName+'"]').find('input').val('');
+	jQuery('form[name="'+fName+'"]').val('');
+	jQuery('form[name="'+fName+'"]').find('select').find('option:first-child').attr("selected", true);
+}
+
 function get_ajax_data(action,type,param,dest){
 	jQuery.ajax({
-			url: ajaxUrl,
-			type: 'POST',
-			data: {
-				action: action,
-				type: type,
-				param: param
-			},
-			success: function(response){
-				jQuery(dest).text(response);
-			},
-			error: function(xhr, desc, err) {
-				console.log(xhr + "\n" + err);
-			}
-		});
-    }
+		url: ajaxUrl,
+		type: 'POST',
+		data: {
+			action: action,
+			type: type,
+			param: param
+		},
+		success: function(response){
+			jQuery(dest).text(response);
+		},
+		error: function(xhr, desc, err) {
+			console.log(xhr + "\n" + err);
+		}
+	});
+}
+
 
 function openPopup(el) {
-		jQuery.magnificPopup.open({
-			items: {
-				src: '#'+el,
-			},
-			type: 'inline',
-			fixedContentPos: false,
-			fixedBgPos: true,
-			overflowY: 'auto',
-			closeBtnInside: true,
-			preloader: false,
-			midClick: true,
-			removalDelay: 300,
-			mainClass: 'my-mfp-zoom-in'
-		});
-	}
+	jQuery.magnificPopup.open({
+		items: {
+			src: '#'+el,
+		},
+		type: 'inline',
+		fixedContentPos: false,
+		fixedBgPos: true,
+		overflowY: 'auto',
+		closeBtnInside: true,
+		preloader: false,
+		midClick: true,
+		removalDelay: 300,
+		mainClass: 'my-mfp-zoom-in'
+	});
+}
