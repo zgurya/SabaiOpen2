@@ -11,6 +11,7 @@ class Model {
 		require_once ROOT.'/models/wan.php';
 		require_once ROOT.'/models/network_time.php';
 		require_once ROOT.'/models/portforwarding.php';
+		require_once ROOT.'/models/dhcp.php';
 	}
 }
 ?>

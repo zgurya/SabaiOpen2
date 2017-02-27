@@ -918,6 +918,35 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
     min-width: 300px;
     color: #fff;
 }
+#main .sortTable{
+	width: 100%;
+    margin: 15px 0 30px 0;
+}
+#main .sortTable th{
+	border-bottom: 2px solid rgb(221, 221, 221);
+	text-align: left;
+	padding: 8px;
+	font-size: 12px;
+}
+#main .sortTable td{
+	border-top: 1px solid rgb(221, 221, 221);
+	padding: 8px;
+}
+#main .sortTable tr:nth-of-type(2n+1) {
+    background-color: rgb(249, 249, 249);
+}
+#main .sortTable tr{
+	cursor: pointer;
+}
+#main .sortTable tr.clicked{
+	background: #CED7E1;
+}
+#main .sortTable tr{
+	cursor: pointer;
+}
+#main .sortTable tr.clicked{
+	background: #CED7E1;
+}
 
 /*--------------------------------------------------------------
 7.1 - Diagnostics. Ping
@@ -1007,27 +1036,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
 .network-time .timezone-select button{
 	margin-left: 15px;
 }
-.network-time #main #ntpTable{
-	width: 100%;
-}
-.network-time #main #ntpTable th{
-	border-bottom: 2px solid rgb(221, 221, 221);
-	text-align: left;
-	padding: 8px;
-}
-.network-time #main #ntpTable td{
-	border-top: 1px solid rgb(221, 221, 221);
-	padding: 8px;
-}
-.network-time #main #ntpTable tr:nth-of-type(2n+1) {
-    background-color: rgb(249, 249, 249);
-}
-.network-time #main #ntpTable tr{
-	cursor: pointer;
-}
-.network-time #main #ntpTable tr.clicked{
-	background: #CED7E1;
-}
 .network-time #main .ntp-buttons button[name="add-ntp"]{
 	border-radius: 3px 0 0 3px;
 	border-right: 0;
@@ -1109,29 +1117,11 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
 	color: red;
 	margin-top: 0;
 }
-.security-portforwarding #main #portFWTable{
-	width: 100%;
-    margin: 15px 0 30px 0;
-}
-.security-portforwarding #main #portFWTable th{
-	border-bottom: 2px solid rgb(221, 221, 221);
-	text-align: left;
-	padding: 8px;
-	font-size: 12px;
-}
-.security-portforwarding #main #portFWTable td{
-	border-top: 1px solid rgb(221, 221, 221);
-	padding: 8px;
-}
-.security-portforwarding #main #portFWTable tr:nth-of-type(2n+1) {
-    background-color: rgb(249, 249, 249);
-}
-.security-portforwarding #main #portFWTable tr{
-	cursor: pointer;
-}
-.security-portforwarding #main #portFWTable tr.clicked{
-	background: #CED7E1;
-}
+
+/*--------------------------------------------------------------
+7.5 - VPN.Gateways
+--------------------------------------------------------------*/
+
 
 /*--------------------------------------------------------------
 8 - Footer
